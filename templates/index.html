@@ -8,8 +8,21 @@
 <body>
   <h1>Etusivu</h1>
   <p>
-    <b>Tervetuloa</b> <i>sovellukseen</i>!
+    <b>Tervetuloa</b> <i>Lasten leikkitreffit -sovellukseen</i>!
   </p>
+  {% if session.username %}
+  <p>
+    Olet kirjautunut nimellä {{ session.username }}
+  </p>
+  <p>
+    <a href="/logout">Kirjaudu ulos</a>
+  </p>
+  {% else %}
+  <p>
+    <a href="/login">Kirjaudu sisään</a>
+    <a href="/register">Luo tunnus</a>
+  </p>
+  {% endif %}
 </body>
 
 </html>
