@@ -16,6 +16,10 @@ def index():
 def register():
     return render_template("register.html")
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 @app.route("/create", methods=["POST"])
 def create():
     username = request.form["username"]
@@ -33,8 +37,8 @@ def create():
 
     return "Tunnus luotu"
 
-@app.route("/login", methods=["POST"])
-def login():
+@app.route("/check", methods=["POST"])
+def check():
     username = request.form["username"]
     password = request.form["password"]
     
