@@ -12,8 +12,10 @@ CREATE TABLE visits (
 CREATE TABLE invitations (
     id INTEGER PRIMARY KEY,
     title TEXT,
+    name TEXT,
     location TEXT,
-    time DATE,
+    day DATE,
+    time TEXT,
     age INTEGER,
-    user_id INETEGR REFERENCES users
+    user_id INTEGER REFERENCES users
 );

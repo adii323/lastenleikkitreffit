@@ -19,15 +19,17 @@ def new_invitation():
 @app.route("/create_invitation", methods=["POST"])
 def create_invitation():
     title = request.form["title"]
+    name = request.form["name"]
     location = request.form["location"]
+    day = request.form["day"]
     time = request.form["time"]
     age = request.form["age"]
-    print("Create invitation session useride = ", session["user_id"])
+    #print("Create invitation session useride = ", session["user_id"])
     user_id = session["user_id"]
 
-    sql = """INSERT INTO invitations (title, location, time, age, user_id) 
-    VALUES (?, ? ,?, ?, ?)"""
-    db.execute(sql, [title, location, time, age, user_id])
+    sql = """INSERT INTO invitations (title, name, location, day, time, age, user_id) 
+    VALUES (?, ? ,?, ?, ?, ?, ?)"""
+    db.execute(sql, [title, name, location, day, time, age, user_id])
 
     return redirect("/")
 
@@ -50,7 +52,7 @@ def create_user():
     except sqlite3.IntegrityError:
         return "VIRHE: tunnus on jo varattu"
 
-    return "Tunnus luotu"
+    return render_template("user_created.html")
 
 @app.route("/login")
 def login():
@@ -76,10 +78,10 @@ def check():
         #print(session["username"])
         return redirect("/")
     else:
-        return "VIRHE: väärä tunnus tai salasana"
+        return render_template("failed_login.html")
 
 @app.route("/logout")
 def logout():
-    #del session["user_id"]
+    del session["user_id"]
     del session["username"]
     return redirect("/")
