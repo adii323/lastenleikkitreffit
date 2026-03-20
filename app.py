@@ -4,6 +4,7 @@ from flask import redirect, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
+import invitations
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -27,9 +28,7 @@ def create_invitation():
     #print("Create invitation session useride = ", session["user_id"])
     user_id = session["user_id"]
 
-    sql = """INSERT INTO invitations (title, name, location, day, time, age, user_id) 
-    VALUES (?, ? ,?, ?, ?, ?, ?)"""
-    db.execute(sql, [title, name, location, day, time, age, user_id])
+    invitations.add_invitation(title, name, location, day, time, age, user_id)
 
     return redirect("/")
 
