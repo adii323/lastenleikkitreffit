@@ -11,7 +11,13 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    all_invitations = invitations.get_invitations()
+    return render_template("index.html", invitations = all_invitations)
+
+@app.route("/invitation/<int:invitation_id>")
+def show_invitation(invitation_id):
+    invitation = invitations.get_invitation(invitation_id)
+    return render_template("show_invitation.html", invitation = invitation)
 
 @app.route("/new_invitation")
 def new_invitation():
