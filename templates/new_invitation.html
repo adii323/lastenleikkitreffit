@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Lisää uusi kutsu</title>
+</head>
+
+<body>
+  <h1>Uusi kutsu</h1>
+  <form action="/create_invitation" method="post">
+    <p>
+      Otsikko: <br />
+      <input type="text" name="title" />
+    </p>
+    <p>
+      Leikkipaikan sijainti: <br />
+      <input type="text" name="location" />
+    </p>
+    <p>
+      Leikkiaika: <br />
+      <input type="text" name="time" />
+    </p>
+    <p>
+      Leikkikaverin ikä: <br />
+      <input type="text" name="age" size="5"/> vuotta
+    </p>
+    <input type="submit" value="Lisää kutsu" />
+  </form>
+</body>
+
+</html>

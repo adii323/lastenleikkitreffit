@@ -12,6 +12,10 @@ app.secret_key = config.secret_key
 def index():
     return render_template("index.html")
 
+@app.route("/new_invitation")
+def new_invitation():
+    return render_template("new_invitation.html")
+
 @app.route("/register")
 def register():
     return render_template("register.html")
@@ -20,7 +24,7 @@ def register():
 def login():
     return render_template("login.html")
 
-@app.route("/create", methods=["POST"])
+@app.route("/create_user", methods=["POST"])
 def create():
     username = request.form["username"]
     password1 = request.form["password1"]
