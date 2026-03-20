@@ -9,4 +9,11 @@ CREATE TABLE visits (
     visited_at TEXT
 );
 
-CREATE TABLE invitations ()
+CREATE TABLE invitations (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    location TEXT,
+    time DATE,
+    age INTEGER,
+    user_id INETEGR REFERENCES users
+);
