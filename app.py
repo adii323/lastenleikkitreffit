@@ -14,6 +14,16 @@ def index():
     all_invitations = invitations.get_invitations()
     return render_template("index.html", invitations = all_invitations)
 
+@app.route("/find_invitations")
+def find_invitations():
+    query = request.args.get("query")
+    if query:
+        results = invitations.find_invitations(query)
+    else:
+        query = ""
+        results = []
+    return render_template("find_invitations.html", query=query, results=results)
+
 @app.route("/invitation/<int:invitation_id>")
 def show_invitation(invitation_id):
     invitation = invitations.get_invitation(invitation_id)

@@ -38,3 +38,10 @@ def update_invitation(invitation_id, title, name, location, day, time, age):
 def remove_invitation(invitation_id):
     sql = "DELETE FROM invitations WHERE id = ?"""
     db.execute(sql, [invitation_id])
+
+def find_invitations(query):
+    sql ="""SELECT id, title
+            FROM invitations
+            WHERE title OR name LIKE ?
+            ORDER BY id DESC"""
+    return db.query(sql, ["%" + query + "%"])
