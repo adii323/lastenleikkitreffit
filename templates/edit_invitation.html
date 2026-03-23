@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kutsun muokkaus</title>
+</head>
+
+<body>
+  <h1>Kutsun muokkaus</h1>
+  <form action="/update_invitation" method="post">
+    <p>
+      Otsikko: <br />
+      <input type="text" name="title" value="{{ invitation.title }}"/>
+    </p>
+    <p>
+      Leikkipaikan nimi: <br />
+      <input type="text" name="name" value="{{ invitation.name }}"/>
+    </p>
+    <p>
+      Leikkipaikan osoite: <br />
+      <input type="text" name="location" value="{{ invitation.location }}"/>
+    </p>
+    <p>
+      Leikkiaika: <br />
+      Päivämäärä: <input type="text" name="day" value="{{ invitation.day }}"/> <br />
+      Kellonaika: <input type="text" name="time" value="{{ invitation.time }}"/>
+    </p>
+    <p>
+      Leikkikaverin ikä: <br />
+      <input type="text" name="age" size="5" value="{{ invitation.age }}"/> vuotta
+    </p>
+    <input type="hidden" name="invitation_id" value="{{ invitation.id}}" />
+    <input type="submit" value="Päivitä kutsua" />
+  </form>
+</body>
+
+</html>

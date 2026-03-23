@@ -38,6 +38,25 @@ def create_invitation():
 
     return redirect("/")
 
+@app.route("/edit_invitation/<int:invitation_id>")
+def edit_invitation(invitation_id):
+    invitation = invitations.get_invitation(invitation_id)
+    return render_template("edit_invitation.html", invitation=invitation)
+
+@app.route("/update_invitation", methods=["POST"])
+def update_invitation():
+    invitation_id = request.form["invitation_id"]
+    title = request.form["title"]
+    name = request.form["name"]
+    location = request.form["location"]
+    day = request.form["day"]
+    time = request.form["time"]
+    age = request.form["age"]
+
+    invitations.update_invitation(invitation_id, title, name, location, day, time, age)
+
+    return redirect("/invitation/" + str(invitation_id))
+
 @app.route("/register")
 def register():
     return render_template("register.html")

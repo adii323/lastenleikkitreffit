@@ -7,11 +7,22 @@
 
 <body>
   <h1>{{ invitation.title }}</h1>
+  {% if session.user_id == invitation.user_id %}
   <p>
-    {{ invitation.name }}
+    <a href="/edit_invitation/{{ invitation.id }}">Muokkaa</a>
+  </p>
+  {% endif %}
+  <p>
+    Leikkipaikan nimi: {{ invitation.name }}
+  </p>
+  <p>
+    Leikkipaikan osoite: {{ invitation.location }}
   </p>
   <p>
     Ajankohta: {{ invitation.day}} klo {{ invitation.time }}
+  </p>
+  <p>
+    Leikkikaverin ikä: {{ invitation.age }}
   </p>
   <p>
     Kutsuja: {{ invitation.username }}
