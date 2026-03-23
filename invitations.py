@@ -33,3 +33,8 @@ def update_invitation(invitation_id, title, name, location, day, time, age):
                                     age = ?
                                 WHERE id = ?"""
     db.execute(sql, [title, name, location, day, time, age, invitation_id])
+
+
+def remove_invitation(invitation_id):
+    sql = "DELETE FROM invitations WHERE id = ?"""
+    db.execute(sql, [invitation_id])

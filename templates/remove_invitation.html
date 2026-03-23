@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kutsun poisto</title>
+</head>
+
+<body>
+  <h1>Kutsun poisto</h1>
+  <p>Kutsu: {{ invitation.title }} </p>
+  <p>Haluatko varmasti poistaa tämän kutsun?</p>
+  <form action="/remove_invitation/{{ invitation.id }}" method="post">
+    <input type="submit" name="remove" value="Poista ilmoitus">
+    <input type="submit" name="back" value="Palaa takaisin">
+  </form>
+</body>
+
+</html>

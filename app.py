@@ -57,6 +57,19 @@ def update_invitation():
 
     return redirect("/invitation/" + str(invitation_id))
 
+@app.route("/remove_invitation/<int:invitation_id>", methods=["GET", "POST"])
+def remove_invitation(invitation_id):
+    if request.method == "GET":
+        invitation = invitations.get_invitation(invitation_id)
+        return render_template("remove_invitation.html", invitation=invitation)
+      
+    if request.method == "POST":
+        if "remove" in request.form:
+            invitations.remove_invitation(invitation_id)
+            return redirect("/")
+        else:
+            return redirect("/invitation/" + str(invitation_id))
+
 @app.route("/register")
 def register():
     return render_template("register.html")
