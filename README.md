@@ -12,7 +12,7 @@
 
 ## Sovelluksen asennus (linux-ympäristö):  
 Luo sovellukselle oma hakemisto:
-#
+```
 	mkdir hakemiston_nimi
 
 ja siirry hakemistoon:
