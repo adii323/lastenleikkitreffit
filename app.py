@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
@@ -45,18 +45,23 @@ def create_invitation():
     #print("Create invitation session useride = ", session["user_id"])
     user_id = session["user_id"]
 
-    invitations.add_invitation(title, name, location, day, time, age, user_id)
+    invitations.add_invitation(title, name, location, day, time, childs_name, age, user_id)
 
     return redirect("/")
 
 @app.route("/edit_invitation/<int:invitation_id>")
 def edit_invitation(invitation_id):
     invitation = invitations.get_invitation(invitation_id)
+    if invitation["user_id"] != session["user_id"]:
+        abort(403)
     return render_template("edit_invitation.html", invitation=invitation)
 
 @app.route("/update_invitation", methods=["POST"])
 def update_invitation():
     invitation_id = request.form["invitation_id"]
+    invitation = invitations.get_invitation(invitation_id)
+    if invitation["user_id"] != session["user_id"]:
+        abort(403)
     title = request.form["title"]
     name = request.form["name"]
     location = request.form["location"]
@@ -71,8 +76,10 @@ def update_invitation():
 
 @app.route("/remove_invitation/<int:invitation_id>", methods=["GET", "POST"])
 def remove_invitation(invitation_id):
+    invitation = invitations.get_invitation(invitation_id)
+    if invitation["user_id"] != session["user_id"]:
+        abort(403)
     if request.method == "GET":
-        invitation = invitations.get_invitation(invitation_id)
         return render_template("remove_invitation.html", invitation=invitation)
       
     if request.method == "POST":
