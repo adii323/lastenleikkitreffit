@@ -90,14 +90,14 @@ def create_user():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return "VIRHE: salasanat eivät ole samat"
+        return render_template("different_passwords.html")
     password_hash = generate_password_hash(password1)
 
     try:
         sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)"
         db.execute(sql, [username, password_hash])
     except sqlite3.IntegrityError:
-        return "VIRHE: tunnus on jo varattu"
+        return render_template("username_taken.html")
 
     return render_template("user_created.html")
 
@@ -112,17 +112,12 @@ def check():
     
     sql = "SELECT id, password_hash FROM users WHERE username = ?"
     result = db.query(sql, [username])[0]
-    #print(result["id"])
     user_id = result["id"]
-    #print(user_id)
     password_hash = result["password_hash"]
-    #print(password_hash)
 
     if check_password_hash(password_hash, password):
         session["user_id"] = user_id
-        #print(session["user_id"])
         session["username"] = username
-        #print(session["username"])
         return redirect("/")
     else:
         return render_template("failed_login.html")
