@@ -14,7 +14,7 @@
 Luo sovellukselle oma hakemisto:
 ```
 	mkdir hakemiston_nimi
-
+```
 ja siirry hakemistoon:
 #
 	cd hakemiston_nimi
