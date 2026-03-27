@@ -1,4 +1,6 @@
-# lastenleikkitreffit
+# Lastenleikkitreffit
+
+# Sovelluksen toiminnot
 
 - Sovelluksessa voi kutsua lapselle leikkikavereita esim. puistoon, sisäleikkipuistoon tai kotiin. Sovelluksessa voi etsiä leikkiseuraa lähialueelta.
 - Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
@@ -11,25 +13,25 @@
 
 # Sovelluksen asennus (linux-ympäristö):
 
-Luo sovellukselle oma hakemisto
+Luo sovellukselle oma hakemisto:
 ##
 	mkdir hakemiston_nimi
-ja siirry hakemistoon
+ja siirry hakemistoon:
 ##
 	cd hakemiston_nimi
 Tallenna hakemistoon sovelluksen githubista löytyvät .py tiedostot, schema.sql-tiedosto sekä templates-kansio sisältöineen (.html-tiedostot).
-Luo kanta schema.sql-tiedoston perusteella
+Luo tietokannan taulut schema.sql-tiedoston perusteella:
 ##
 	sqlite3 database.db < schema.sql
-Luo hakemistoon Pythonin virtuaaliympäristö
+Luo hakemistoon Pythonin virtuaaliympäristö:
 ##
 	python3 -m venv venvK
-Käynnistä virtuaaliympäristö
+Käynnistä virtuaaliympäristö:
 ##
 	source venv/bin/activate
-Asenna flask kirjasto
+Asenna flask kirjasto:
 ##
 	pip install flask
-Käynnistä sovellus
+Käynnistä sovellus:
 ##
 	 flask run
