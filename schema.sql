@@ -17,5 +17,6 @@ CREATE TABLE invitations (
     day DATE,
     time TEXT,
     age INTEGER,
+    childs_name TEXT,
     user_id INTEGER REFERENCES users
 );

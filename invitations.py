@@ -17,6 +17,7 @@ def get_invitation(invitation_id):
                     invitations.day,
                     invitations.time, 
                     invitations.age,
+                    invitations.childs_name,
                     users.id user_id,
                     users.username
             FROM invitations, users
@@ -24,15 +25,16 @@ def get_invitation(invitation_id):
             invitations.id = ?"""
     return db.query(sql, [invitation_id])[0]
 
-def update_invitation(invitation_id, title, name, location, day, time, age):
+def update_invitation(invitation_id, title, name, location, day, time, childs_name, age):
     sql = """UPDATE invitations SET title = ?,
                                     name = ?,
                                     location = ?,
                                     day = ?,
                                     time = ?,
+                                    childs_name = ?,
                                     age = ?
                                 WHERE id = ?"""
-    db.execute(sql, [title, name, location, day, time, age, invitation_id])
+    db.execute(sql, [title, name, location, day, time, childs_name, age, invitation_id])
 
 
 def remove_invitation(invitation_id):
