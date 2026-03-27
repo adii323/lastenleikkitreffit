@@ -12,25 +12,31 @@
 
 ## Sovelluksen asennus (linux-ympäristö):  
 Luo sovellukselle oma hakemisto:
-#
+```
 	mkdir hakemiston_nimi
-
+```
 ja siirry hakemistoon:
-#
+```
 	cd hakemiston_nimi
+```
 Tallenna hakemistoon sovelluksen githubista löytyvät .py tiedostot, schema.sql-tiedosto sekä templates-kansio sisältöineen (.html-tiedostot).
 Luo tietokannan taulut schema.sql-tiedoston perusteella: 
-#
+```
 	sqlite3 database.db < schema.sql
+```
 Luo hakemistoon Pythonin virtuaaliympäristö:
-#
-	python3 -m venv venvK
+```
+	python3 -m venv venv
+```
 Käynnistä virtuaaliympäristö: 
-#
+```
 	source venv/bin/activate
+```
 Asenna flask kirjasto:
-#
+```
 	pip install flask
+```
 Käynnistä sovellus:
-#
+```
 	 flask run
+```
