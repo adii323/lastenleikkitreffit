@@ -121,12 +121,17 @@ def check():
     
     sql = "SELECT id, password_hash FROM users WHERE username = ?"
     result = db.query(sql, [username])[0]
+    #print(result["id"])
     user_id = result["id"]
+    #print(user_id)
     password_hash = result["password_hash"]
+    #print(password_hash)
 
     if check_password_hash(password_hash, password):
         session["user_id"] = user_id
+        #print(session["user_id"])
         session["username"] = username
+        #print(session["username"])
         return redirect("/")
     else:
         return render_template("failed_login.html")
