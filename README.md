@@ -26,7 +26,7 @@ Luo tietokannan taulut schema.sql-tiedoston perusteella:
 ```
 Luo hakemistoon Pythonin virtuaaliympäristö:
 ```
-	python3 -m venv venvK
+	python3 -m venv venv
 ```
 Käynnistä virtuaaliympäristö: 
 ```
