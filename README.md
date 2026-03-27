@@ -40,11 +40,11 @@ Käynnistä sovellus:
 ```
 	 flask run
 ```
-Luo ensin tunnus muutamalle eri käyttäjälle. Sen jälkeen voit lisätä käyttäjille kutsuja. Esimerkkisyöte kutsulle:
-Otsikko: Leikkipuistotreffit
-Leikkipaikan nimi: Leikkipuisto Toinen linja
-Leikkipaikan osoite: Toinen linja 10
-Päivämäärä: 28.3.2026
-Kellonaika: 15:00
-Leikkikaverin nimi: Ville
-Leikkikaverin ikä: 4
+Luo ensin tunnus muutamalle eri käyttäjälle. Sen jälkeen voit lisätä käyttäjille kutsuja. Esimerkkisyöte kutsulle:  
+Otsikko: Leikkipuistotreffit  
+Leikkipaikan nimi: Leikkipuisto Toinen linja  
+Leikkipaikan osoite: Toinen linja 10  
+Päivämäärä: 28.3.2026  
+Kellonaika: 15:00  
+Leikkikaverin nimi: Ville  
+Leikkikaverin ikä: 4  
