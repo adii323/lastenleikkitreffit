@@ -99,16 +99,16 @@ def create_user():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return render_template("different_passwords.html")
+        return render_template("register.html", error_password="Salasanat eivät täsmää", username=username), 400
     password_hash = generate_password_hash(password1)
 
     try:
         sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)"
         db.execute(sql, [username, password_hash])
     except sqlite3.IntegrityError:
-        return render_template("username_taken.html")
+        return render_template("register.html", error_username="Tunnus on jo käytössä", username=username), 400
 
-    return render_template("user_created.html")
+    return render_template("login.html")
 
 @app.route("/login")
 def login():
@@ -120,8 +120,11 @@ def check():
     password = request.form["password"]
     
     sql = "SELECT id, password_hash FROM users WHERE username = ?"
-    result = db.query(sql, [username])[0]
+    rows = db.query(sql, [username])
+    if not rows:
+        return render_template("login.html", error="Väärä käyttäjänimi tai salasana"), 400
     #print(result["id"])
+    result = db.query(sql, [username])[0]
     user_id = result["id"]
     #print(user_id)
     password_hash = result["password_hash"]
@@ -134,7 +137,7 @@ def check():
         #print(session["username"])
         return redirect("/")
     else:
-        return render_template("failed_login.html")
+        return render_template("login.html", error="Väärä käyttäjänimi tai salasana"), 400
 
 @app.route("/logout")
 def logout():

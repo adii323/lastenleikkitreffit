@@ -6,10 +6,16 @@
 </head>
 
 <body>
+  {% if error_password%}
+    <div class="error">{{ error_password }}</div>
+  {% endif %}
+  {% if error_username%}
+    <div class="error">{{ error_username }}</div>
+  {% endif %}
   <form action="/create_user" method="post">
     <p>
       Tunnus: <br />
-      <input type="text" name="username" />
+      <input type="text" name="username" value="{{ username|default('') }}"/>
     </p>
     <p>
       Salasana: <br />
