@@ -46,13 +46,32 @@ def create_invitation():
     require_login()
 
     title = request.form["title"]
+    if len(title) > 50:
+        abort(403)
     name = request.form["name"]
+    if not name or len(name) > 50:
+        abort(403)
     location = request.form["location"]
+    if not location or len(location) > 50:
+        abort(403)
     day = request.form["day"]
+    if not day or day < date.today().isoformat():
+        abort(403)
     time = request.form["time"]
-    age = request.form["age"]
+    age_raw = request.form["age"]
+    try:
+        age = int(age_raw)
+    except (TypeError, ValueError):
+        # Not an integer
+        abort(403)
+    if not age or age < 1 or age > 18:
+        abort(403)
     childs_name = request.form["childs_name"]
+    if not childs_name or len(childs_name) > 50:
+        abort(403)
     info = request.form["info"]
+    if not info or len(info) > 1000:
+        abort(403)
     #print("Create invitation session useride = ", session["user_id"])
     user_id = session["user_id"]
 
@@ -68,7 +87,7 @@ def edit_invitation(invitation_id):
         abort(404)
     if invitation["user_id"] != session["user_id"]:
         abort(403)
-    return render_template("edit_invitation.html", invitation=invitation)
+    return render_template("edit_invitation.html", min_day=date.today().isoformat(), invitation=invitation)
 
 @app.route("/update_invitation", methods=["POST"])
 def update_invitation():
@@ -80,13 +99,32 @@ def update_invitation():
     if invitation["user_id"] != session["user_id"]:
         abort(403)
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     name = request.form["name"]
+    if not name or len(name) > 50:
+        abort(403)
     location = request.form["location"]
+    if not location or len(location) > 50:
+        abort(403)
     day = request.form["day"]
+    if not day or day < date.today().isoformat():
+        abort(403)
     time = request.form["time"]
     childs_name = request.form["childs_name"]
-    age = request.form["age"]
+    if not childs_name or len(childs_name) > 50:
+        abort(403)
+    age_raw = request.form["age"]
+    try:
+        age = int(age_raw)
+    except (TypeError, ValueError):
+        # Not an integer
+        abort(403)
+    if not age or age < 1 or age > 18:
+        abort(403)
     info = request.form["info"]
+    if not info or len(info) > 1000:
+        abort(403)
 
     invitations.update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info)
 

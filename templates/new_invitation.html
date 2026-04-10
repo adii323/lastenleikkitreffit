@@ -10,15 +10,15 @@
   <form action="/create_invitation" method="post">
     <p>
       Otsikko: <br />
-      <input type="text" name="title" required/>
+      <input type="text" name="title" maxlength="50" required/>
     </p>
     <p>
       Leikkipaikan nimi: <br />
-      <input type="text" name="name" required/>
+      <input type="text" name="name" maxlength="50" required/>
     </p>
     <p>
       Leikkipaikan osoite: <br />
-      <input type="text" name="location" required/>
+      <input type="text" name="location" maxlength="50" required/>
     </p>
     <p>
       Leikkiaika: <br />
@@ -27,7 +27,7 @@
     </p>
     <p>
       Leikkikaverin nimi: <br />
-      <input type="text" name="childs_name" size="5" required/>
+      <input type="text" name="childs_name" size="5" maxlength="50" required/>
     </p>
     <p>
       Leikkikaverin ikä: <br />
@@ -54,7 +54,7 @@
       </select>
     <p>
       Lisätietoa: <br />
-      <textarea name="info" rows="8" cols="60"></textarea>
+      <textarea name="info" rows="8" cols="60" maxlength="1000"></textarea>
     </p>
     </p>
     <input type="submit" value="Lisää kutsu" />

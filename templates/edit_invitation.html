@@ -10,32 +10,37 @@
   <form action="/update_invitation" method="post">
     <p>
       Otsikko: <br />
-      <input type="text" name="title" value="{{ invitation.title }}"/>
+      <input type="text" name="title" maxlength="50" required value="{{ invitation.title }}"/>
     </p>
     <p>
       Leikkipaikan nimi: <br />
-      <input type="text" name="name" value="{{ invitation.name }}"/>
+      <input type="text" name="name" maxlength="50" required value="{{ invitation.name }}"/>
     </p>
     <p>
       Leikkipaikan osoite: <br />
-      <input type="text" name="location" value="{{ invitation.location }}"/>
+      <input type="text" name="location" maxlength="50" required value="{{ invitation.location }}"/>
     </p>
     <p>
       Leikkiaika: <br />
-      Päivämäärä: <input type="text" name="day" value="{{ invitation.day }}"/> <br />
-      Kellonaika: <input type="text" name="time" value="{{ invitation.time }}"/>
+      Päivämäärä: <input type="date" name="day" min="{{ min_day }}" required value="{{ invitation.day }}"/> <br />
+      Kellonaika: <input type="time" name="time" required value="{{ invitation.time }}"/>
     </p>
     <p>
       Leikkikaverin nimi: <br />
-      <input type="text" name="childs_name" size="5" value="{{ invitation.childs_name }}"/>
+      <input type="text" name="childs_name" size="5" maxlength="50" required value="{{ invitation.childs_name }}"/>
     </p>
     <p>
       Leikkikaverin ikä: <br />
-      <input type="text" name="age" size="5" value="{{ invitation.age }}"/> vuotta
+      <select id="age" name="age" required>
+        <option value="" disabled {% if not invitation.age %}selected{% endif %}>Valitse ikä</option>
+        {% for n in range(1, 19) %}
+          <option value="{{ n }}" {% if n == invitation.age or n == invitation.age|int %}selected{% endif %}>{{ n }}</option>
+        {% endfor %}
+      </select>
     </p>
     <p>
       Lisätietoa: <br />
-      <textarea name="info" rows="8" cols="60">{{ invitation.info }}</textarea>
+      <textarea name="info" rows="8" cols="60" maxlength="1000">{{ invitation.info }}</textarea>
     </p>
     <input type="hidden" name="invitation_id" value="{{ invitation.id}}" />
     <input type="submit" value="Päivitä kutsua" />
