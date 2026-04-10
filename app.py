@@ -10,6 +10,10 @@ from datetime import date
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
+def require_login():
+    if "user_id" not in session:
+        abort(403)
+
 @app.route("/")
 def index():
     all_invitations = invitations.get_invitations()
@@ -34,10 +38,13 @@ def show_invitation(invitation_id):
 
 @app.route("/new_invitation")
 def new_invitation():
+    require_login()
     return render_template("new_invitation.html", min_day=date.today().isoformat())
 
 @app.route("/create_invitation", methods=["POST"])
 def create_invitation():
+    require_login()
+
     title = request.form["title"]
     name = request.form["name"]
     location = request.form["location"]
@@ -55,6 +62,7 @@ def create_invitation():
 
 @app.route("/edit_invitation/<int:invitation_id>")
 def edit_invitation(invitation_id):
+    require_login()
     invitation = invitations.get_invitation(invitation_id)
     if not invitation:
         abort(404)
@@ -64,6 +72,7 @@ def edit_invitation(invitation_id):
 
 @app.route("/update_invitation", methods=["POST"])
 def update_invitation():
+    require_login()
     invitation_id = request.form["invitation_id"]
     invitation = invitations.get_invitation(invitation_id)
     if not invitation:
@@ -85,6 +94,7 @@ def update_invitation():
 
 @app.route("/remove_invitation/<int:invitation_id>", methods=["GET", "POST"])
 def remove_invitation(invitation_id):
+    require_login()
     invitation = invitations.get_invitation(invitation_id)
     if not invitation:
         abort(404)    
@@ -152,6 +162,7 @@ def check():
 
 @app.route("/logout")
 def logout():
-    del session["user_id"]
-    del session["username"]
+    if "user_id" in session:
+        del session["user_id"]
+        del session["username"]
     return redirect("/")
