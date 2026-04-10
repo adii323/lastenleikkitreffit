@@ -1,9 +1,9 @@
 import db
 
-def add_invitation(title, name, location, day, time, childs_name, age, user_id):
-    sql = """INSERT INTO invitations (title, name, location, day, time, childs_name, age, user_id) 
-    VALUES (?, ? ,?, ?, ?, ?, ?, ?)"""
-    db.execute(sql, [title, name, location, day, time, childs_name, age, user_id])
+def add_invitation(title, name, location, day, time, childs_name, age, info, user_id):
+    sql = """INSERT INTO invitations (title, name, location, day, time, childs_name, age, info, user_id) 
+    VALUES (?, ? ,?, ?, ?, ?, ?, ?, ?)"""
+    db.execute(sql, [title, name, location, day, time, childs_name, age, info, user_id])
 
 def get_invitations():
     sql = "SELECT id, title FROM invitations ORDER BY id DESC"
@@ -18,6 +18,7 @@ def get_invitation(invitation_id):
                     invitations.time, 
                     invitations.age,
                     invitations.childs_name,
+                    invitations.info,
                     users.id user_id,
                     users.username
             FROM invitations, users
@@ -25,16 +26,17 @@ def get_invitation(invitation_id):
             invitations.id = ?"""
     return db.query(sql, [invitation_id])[0]
 
-def update_invitation(invitation_id, title, name, location, day, time, childs_name, age):
+def update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info):
     sql = """UPDATE invitations SET title = ?,
                                     name = ?,
                                     location = ?,
                                     day = ?,
                                     time = ?,
                                     childs_name = ?,
-                                    age = ?
+                                    age = ?,
+                                    info = ?
                                 WHERE id = ?"""
-    db.execute(sql, [title, name, location, day, time, childs_name, age, invitation_id])
+    db.execute(sql, [title, name, location, day, time, childs_name, age, info, invitation_id])
 
 
 def remove_invitation(invitation_id):
@@ -47,4 +49,4 @@ def find_invitations(query):
             WHERE title LIKE ? OR name LIKE ?
             ORDER BY id DESC"""
     like = "%" + query + "%"
-    return db.query(sql, [like, like])
+    return db.query(sql, [like,])

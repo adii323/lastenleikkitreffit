@@ -43,10 +43,11 @@ def create_invitation():
     time = request.form["time"]
     age = request.form["age"]
     childs_name = request.form["childs_name"]
+    info = request.form["info"]
     #print("Create invitation session useride = ", session["user_id"])
     user_id = session["user_id"]
 
-    invitations.add_invitation(title, name, location, day, time, childs_name, age, user_id)
+    invitations.add_invitation(title, name, location, day, time, childs_name, age, info, user_id)
 
     return redirect("/")
 
@@ -70,8 +71,9 @@ def update_invitation():
     time = request.form["time"]
     childs_name = request.form["childs_name"]
     age = request.form["age"]
+    info = request.form["info"]
 
-    invitations.update_invitation(invitation_id, title, name, location, day, time, childs_name, age)
+    invitations.update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info)
 
     return redirect("/invitation/" + str(invitation_id))
 

@@ -13,5 +13,6 @@ CREATE TABLE invitations (
     time TEXT,
     age INTEGER,
     childs_name TEXT,
+    info TEXT,
     user_id INTEGER REFERENCES users
 );

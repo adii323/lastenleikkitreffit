@@ -22,7 +22,7 @@
     </p>
     <p>
       Leikkiaika: <br />
-      Päivämäärä: <input type="date" name="date" min="{{ min_day }}" required/> <br />
+      Päivämäärä: <input type="date" name="day" min="{{ min_day }}" required/> <br />
       Kellonaika: <input type="time" name="time" required/>
     </p>
     <p>
@@ -52,6 +52,10 @@
         <option value="17">17</option>
         <option value="18">18</option>
       </select>
+    <p>
+      Lisätietoa: <br />
+      <textarea name="info" rows="8" cols="60"></textarea>
+    </p>
     </p>
     <input type="submit" value="Lisää kutsu" />
   </form>

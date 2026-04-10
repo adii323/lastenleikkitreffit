@@ -33,6 +33,10 @@
       Leikkikaverin ikä: <br />
       <input type="text" name="age" size="5" value="{{ invitation.age }}"/> vuotta
     </p>
+    <p>
+      Lisätietoa: <br />
+      <textarea name="info" rows="8" cols="60">{{ invitation.info }}</textarea>
+    </p>
     <input type="hidden" name="invitation_id" value="{{ invitation.id}}" />
     <input type="submit" value="Päivitä kutsua" />
   </form>
