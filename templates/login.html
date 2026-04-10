@@ -9,7 +9,10 @@
   {% if error %}
     <div class="error">{{ error }}</div>
   {% endif %}
-  
+  {% if message %}
+    <div class="error">{{ message }}</div>
+  {% endif %}
+
   <form action="/check" method="post">
     <p>
       Tunnus: <br />
@@ -21,6 +24,10 @@
     </p>
     <input type="submit" value="Kirjaudu" />
   </form>
+  <p>
+    Eikö sinulla oli käyttäjänimeä? <br />
+    <a href="/register">Luo tunnus</a>
+  </p>
 </body>
 
 </html>

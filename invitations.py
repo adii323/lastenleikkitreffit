@@ -44,6 +44,7 @@ def remove_invitation(invitation_id):
 def find_invitations(query):
     sql ="""SELECT id, title
             FROM invitations
-            WHERE title OR name LIKE ?
+            WHERE title LIKE ? OR name LIKE ?
             ORDER BY id DESC"""
-    return db.query(sql, ["%" + query + "%"])
+    like = "%" + query + "%"
+    return db.query(sql, [like, like])

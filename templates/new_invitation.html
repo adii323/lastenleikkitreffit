@@ -10,28 +10,48 @@
   <form action="/create_invitation" method="post">
     <p>
       Otsikko: <br />
-      <input type="text" name="title" />
+      <input type="text" name="title" required/>
     </p>
     <p>
       Leikkipaikan nimi: <br />
-      <input type="text" name="name" />
+      <input type="text" name="name" required/>
     </p>
     <p>
       Leikkipaikan osoite: <br />
-      <input type="text" name="location" />
+      <input type="text" name="location" required/>
     </p>
     <p>
       Leikkiaika: <br />
-      Päivämäärä: <input type="text" name="day" /> <br />
-      Kellonaika: <input type="text" name="time" />
+      Päivämäärä: <input type="date" name="date" min="{{ min_day }}" required/> <br />
+      Kellonaika: <input type="time" name="time" required/>
     </p>
     <p>
       Leikkikaverin nimi: <br />
-      <input type="text" name="childs_name" size="5"/> vuotta
+      <input type="text" name="childs_name" size="5" required/>
     </p>
     <p>
       Leikkikaverin ikä: <br />
-      <input type="text" name="age" size="5"/> vuotta
+      <select id="age" name="age" required>
+        <option value="" disabled selected>Valitse ikä</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+      </select>
     </p>
     <input type="submit" value="Lisää kutsu" />
   </form>

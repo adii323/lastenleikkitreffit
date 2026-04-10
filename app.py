@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
 import invitations
+from datetime import date
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -31,7 +32,7 @@ def show_invitation(invitation_id):
 
 @app.route("/new_invitation")
 def new_invitation():
-    return render_template("new_invitation.html")
+    return render_template("new_invitation.html", min_day=date.today().isoformat())
 
 @app.route("/create_invitation", methods=["POST"])
 def create_invitation():
@@ -108,7 +109,7 @@ def create_user():
     except sqlite3.IntegrityError:
         return render_template("register.html", error_username="Tunnus on jo käytössä", username=username), 400
 
-    return render_template("login.html")
+    return render_template("login.html", message="Tunnus luotu! Kirjaudu sisään sovellukseen:")
 
 @app.route("/login")
 def login():
