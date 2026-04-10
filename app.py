@@ -28,6 +28,8 @@ def find_invitations():
 @app.route("/invitation/<int:invitation_id>")
 def show_invitation(invitation_id):
     invitation = invitations.get_invitation(invitation_id)
+    if not invitation:
+        abort(404)
     return render_template("show_invitation.html", invitation = invitation)
 
 @app.route("/new_invitation")
@@ -54,6 +56,8 @@ def create_invitation():
 @app.route("/edit_invitation/<int:invitation_id>")
 def edit_invitation(invitation_id):
     invitation = invitations.get_invitation(invitation_id)
+    if not invitation:
+        abort(404)
     if invitation["user_id"] != session["user_id"]:
         abort(403)
     return render_template("edit_invitation.html", invitation=invitation)
@@ -62,6 +66,8 @@ def edit_invitation(invitation_id):
 def update_invitation():
     invitation_id = request.form["invitation_id"]
     invitation = invitations.get_invitation(invitation_id)
+    if not invitation:
+        abort(404)
     if invitation["user_id"] != session["user_id"]:
         abort(403)
     title = request.form["title"]
@@ -80,6 +86,8 @@ def update_invitation():
 @app.route("/remove_invitation/<int:invitation_id>", methods=["GET", "POST"])
 def remove_invitation(invitation_id):
     invitation = invitations.get_invitation(invitation_id)
+    if not invitation:
+        abort(404)    
     if invitation["user_id"] != session["user_id"]:
         abort(403)
     if request.method == "GET":

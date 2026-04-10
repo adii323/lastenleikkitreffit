@@ -24,7 +24,8 @@ def get_invitation(invitation_id):
             FROM invitations, users
             WHERE invitations.user_id = users.id AND
             invitations.id = ?"""
-    return db.query(sql, [invitation_id])[0]
+    result = db.query(sql, [invitation_id])
+    return result[0] if result else None
 
 def update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info):
     sql = """UPDATE invitations SET title = ?,
