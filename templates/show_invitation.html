@@ -13,6 +13,16 @@
     <a href="/remove_invitation/{{ invitation.id }}">Poista</a>
   </p>
   {% endif %}
+  {% if classes %}
+  <p>
+    Tekeminen:
+    <ul>
+      {% for class in classes %}
+      <li>{{ class.value }}</li>
+      {% endfor%}
+    </ul>
+  </p>
+  {% endif %}
   <p>
     Leikkipaikan nimi: {{ invitation.name }}
   </p>

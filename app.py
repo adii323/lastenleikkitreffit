@@ -42,7 +42,8 @@ def show_invitation(invitation_id):
     invitation = invitations.get_invitation(invitation_id)
     if not invitation:
         abort(404)
-    return render_template("show_invitation.html", invitation = invitation)
+    classes = invitations.get_classes(invitation_id)
+    return render_template("show_invitation.html", invitation = invitation, classes=classes)
 
 @app.route("/new_invitation")
 def new_invitation():
@@ -83,7 +84,12 @@ def create_invitation():
     #print("Create invitation session useride = ", session["user_id"])
     user_id = session["user_id"]
 
-    invitations.add_invitation(title, name, location, day, time, childs_name, age, info, user_id)
+    classes = []
+    activity = request.form["activity"]
+    if activity:
+        classes.append(("Tekeminen", activity))
+    
+    invitations.add_invitation(title, name, location, day, time, childs_name, age, info, user_id, classes)
 
     return redirect("/")
 

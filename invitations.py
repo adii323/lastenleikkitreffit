@@ -1,9 +1,19 @@
 import db
 
-def add_invitation(title, name, location, day, time, childs_name, age, info, user_id):
+def add_invitation(title, name, location, day, time, childs_name, age, info, user_id, classes):
     sql = """INSERT INTO invitations (title, name, location, day, time, childs_name, age, info, user_id) 
     VALUES (?, ? ,?, ?, ?, ?, ?, ?, ?)"""
     db.execute(sql, [title, name, location, day, time, childs_name, age, info, user_id])
+
+    invitation_id = db.last_insert_id()
+
+    sql = "INSERT INTO invitation_classes (invitation_id, title, value) VALUES (?, ?, ?)"
+    for title, value in classes:
+        db.execute(sql, [invitation_id, title, value])
+
+def get_classes(invitation_id):
+    sql = "SELECT title, value FROM invitation_classes WHERE invitation_id = ?"
+    return db.query(sql, [invitation_id])
 
 def get_invitations():
     sql = "SELECT id, title, location, day, time FROM invitations ORDER BY id DESC"
