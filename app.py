@@ -1,7 +1,6 @@
 import sqlite3
 from flask import Flask
 from flask import redirect, render_template, request, session, abort
-from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
 import invitations
@@ -168,14 +167,12 @@ def create_user():
     password2 = request.form["password2"]
     if password1 != password2:
         return render_template("register.html", error_password="Salasanat eivät täsmää", username=username), 400
-    password_hash = generate_password_hash(password1)
-
+    
     try:
-        sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)"
-        db.execute(sql, [username, password_hash])
+        users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        return render_template("register.html", error_username="Tunnus on jo käytössä", username=username), 400
-
+        return render_template("register.html", error_username="Tunnus on jo käytössä") 
+                                  
     return render_template("login.html", message="Tunnus luotu! Kirjaudu sisään sovellukseen:")
 
 @app.route("/login")
@@ -186,26 +183,15 @@ def login():
 def check():
     username = request.form["username"]
     password = request.form["password"]
-    
-    sql = "SELECT id, password_hash FROM users WHERE username = ?"
-    rows = db.query(sql, [username])
-    if not rows:
-        return render_template("login.html", error="Väärä käyttäjänimi tai salasana"), 400
-    #print(result["id"])
-    result = db.query(sql, [username])[0]
-    user_id = result["id"]
-    #print(user_id)
-    password_hash = result["password_hash"]
-    #print(password_hash)
 
-    if check_password_hash(password_hash, password):
+    user_id = users.check_login(username, password)
+    if user_id:
         session["user_id"] = user_id
-        #print(session["user_id"])
         session["username"] = username
-        #print(session["username"])
         return redirect("/")
     else:
         return render_template("login.html", error="Väärä käyttäjänimi tai salasana"), 400
+
 
 @app.route("/logout")
 def logout():
