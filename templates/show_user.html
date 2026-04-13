@@ -10,7 +10,10 @@
   <h2>Käyttäjän kutsut:</h2>
   <ul>
     {% for invitation in invitations %}
-    <li><a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> </li>
+    <li>
+      <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> 
+      Ajankohta: {{ invitation.day}} {{ invitation.time}} Paikka: {{ invitation.location}}
+    </li>
     {% endfor %}
   </ul>
   <p>

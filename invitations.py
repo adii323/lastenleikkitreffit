@@ -6,7 +6,7 @@ def add_invitation(title, name, location, day, time, childs_name, age, info, use
     db.execute(sql, [title, name, location, day, time, childs_name, age, info, user_id])
 
 def get_invitations():
-    sql = "SELECT id, title FROM invitations ORDER BY id DESC"
+    sql = "SELECT id, title, location, day, time FROM invitations ORDER BY id DESC"
     return db.query(sql)
 
 def get_invitation(invitation_id):
