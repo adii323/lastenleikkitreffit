@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Käyttäjä {{ user.username }}</title>
+</head>
+
+<body>
+  <h1>Käyttäjä {{ user.username }}</h1>
+  <h2>Käyttäjän kutsut:</h2>
+  <ul>
+    {% for invitation in invitations %}
+    <li><a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> </li>
+    {% endfor %}
+  </ul>
+  <p>
+    <a href="/">Takaisin</a>
+  </p>
+
+</body>
+
+</html>

@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
 import invitations
+import users
 from datetime import date
 
 app = Flask(__name__)
@@ -18,6 +19,14 @@ def require_login():
 def index():
     all_invitations = invitations.get_invitations()
     return render_template("index.html", invitations = all_invitations)
+
+@app.route("/user/<int:user_id>")
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    invitations = users.get_invitations(user_id)
+    return render_template("show_user.html", user = user, invitations=invitations)
 
 @app.route("/find_invitations")
 def find_invitations():

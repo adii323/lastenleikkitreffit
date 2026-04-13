@@ -29,7 +29,7 @@
     Leikkikaverin ikä: {{ invitation.age }}
   </p>
   <p>
-    Kutsuja: {{ invitation.username }}
+    Kutsuja: <a href="/user/{{ invitation.user_id }}">{{ invitation.username }}</a>
   </p>
   <p>
     Lisätietoa: {{ invitation.info }}
