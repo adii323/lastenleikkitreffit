@@ -84,11 +84,17 @@ def create_invitation():
     #print("Create invitation session useride = ", session["user_id"])
     user_id = session["user_id"]
 
+    all_classes = invitations.get_all_classes()
+
     classes = []
     for entry in request.form.getlist("classes"):
         if entry:
-            parts = entry.split(":")
-            classes.append((parts[0], parts[1]))
+            class_title, class_value = entry.split(":")
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            classes.append((class_title, class_value))
     
     invitations.add_invitation(title, name, location, day, time, childs_name, age, info, user_id, classes)
 
@@ -151,11 +157,16 @@ def update_invitation():
         abort(403)
     info = request.form["info"]
 
+    all_classes = invitations.get_all_classes()
     classes = []
     for entry in request.form.getlist("classes"):
         if entry:
-            parts = entry.split(":")
-            classes.append((parts[0], parts[1]))
+            class_title, class_value = entry.split(":")
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            classes.append((class_title, class_value))
     
 
     invitations.update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info, classes)
