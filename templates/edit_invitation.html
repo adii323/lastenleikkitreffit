@@ -73,6 +73,7 @@
       <textarea name="info" rows="8" cols="60" maxlength="1000">{{ invitation.info }}</textarea>
     </p>
     <input type="hidden" name="invitation_id" value="{{ invitation.id}}" />
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" value="Päivitä kutsua" />
   </form>
 </body>

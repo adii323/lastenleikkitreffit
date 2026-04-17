@@ -94,8 +94,9 @@
     <p>
     Vastaaja: <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
     </p>
-    <input type="submit" value="Ilmoittaudu" />
     <input type="hidden" name="invitation_id" value="{{ invitation.id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <input type="submit" value="Ilmoittaudu" />
   </form>
   {% endif %}
   <p>

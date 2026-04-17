@@ -68,6 +68,7 @@
       <textarea name="info" rows="8" cols="60" maxlength="1000"></textarea>
     </p>
     </p>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" value="Lisää kutsu" />
   </form>
 </body>

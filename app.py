@@ -6,12 +6,19 @@ import db
 import invitations
 import users
 from datetime import date
+import secrets
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
 def require_login():
     if "user_id" not in session:
+        abort(403)
+
+def check_csrf():
+    if "csrf_token" not in request.form:
+        abort(403)
+    if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 
 @app.route("/")
@@ -56,6 +63,7 @@ def new_invitation():
 @app.route("/create_invitation", methods=["POST"])
 def create_invitation():
     require_login()
+    check_csrf()
 
     title = request.form["title"]
     if len(title) > 50:
@@ -105,6 +113,7 @@ def create_invitation():
 @app.route("/create_answer", methods=["POST"])
 def create_answer():
     require_login()
+    check_csrf()
 
     childs_name = request.form["childs_name"]
     if not childs_name or len(childs_name) > 50:
@@ -153,6 +162,8 @@ def edit_invitation(invitation_id):
 @app.route("/update_invitation", methods=["POST"])
 def update_invitation():
     require_login()
+    check_csrf()
+
     invitation_id = request.form["invitation_id"]
     invitation = invitations.get_invitation(invitation_id)
     if not invitation:
@@ -204,6 +215,7 @@ def update_invitation():
 @app.route("/remove_invitation/<int:invitation_id>", methods=["GET", "POST"])
 def remove_invitation(invitation_id):
     require_login()
+    
     invitation = invitations.get_invitation(invitation_id)
     if not invitation:
         abort(404)    
@@ -213,6 +225,7 @@ def remove_invitation(invitation_id):
         return render_template("remove_invitation.html", invitation=invitation)
       
     if request.method == "POST":
+        check_csrf()
         if "remove" in request.form:
             invitations.remove_invitation(invitation_id)
             return redirect("/")
@@ -251,6 +264,7 @@ def check():
     if user_id:
         session["user_id"] = user_id
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
     else:
         return render_template("login.html", error="Väärä käyttäjänimi tai salasana"), 400
