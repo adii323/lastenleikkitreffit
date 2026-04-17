@@ -43,13 +43,15 @@ def show_invitation(invitation_id):
     if not invitation:
         abort(404)
     classes = invitations.get_classes(invitation_id)
-    return render_template("show_invitation.html", invitation = invitation, classes=classes)
+    answers = invitations.get_answers(invitation_id)
+    return render_template("show_invitation.html", invitation = invitation, classes=classes, answers=answers)
 
 @app.route("/new_invitation")
 def new_invitation():
     require_login()
     classes = invitations.get_all_classes()
     return render_template("new_invitation.html", min_day=date.today().isoformat(), classes=classes)
+
 
 @app.route("/create_invitation", methods=["POST"])
 def create_invitation():
@@ -99,6 +101,32 @@ def create_invitation():
     invitations.add_invitation(title, name, location, day, time, childs_name, age, info, user_id, classes)
 
     return redirect("/")
+
+@app.route("/create_answer", methods=["POST"])
+def create_answer():
+    require_login()
+
+    childs_name = request.form["childs_name"]
+    if not childs_name or len(childs_name) > 50:
+        abort(403)
+    age_raw = request.form["age"]
+    try:
+        age = int(age_raw)
+    except (TypeError, ValueError):
+        # Not an integer
+        abort(403)
+    message = request.form["message"]
+    if not message or len(message) > 1000:
+        abort(403)
+    invitation_id = request.form["invitation_id"]
+    invitation = invitations.get_invitation(invitation_id)
+    if not invitation:
+        abort(403)
+    user_id = session["user_id"]
+
+    invitations.add_answer(invitation_id, user_id, childs_name, age, message)
+
+    return redirect("/invitation/" + str(invitation_id))
 
 @app.route("/edit_invitation/<int:invitation_id>")
 def edit_invitation(invitation_id):

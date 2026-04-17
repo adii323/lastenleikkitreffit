@@ -23,6 +23,16 @@ def add_invitation(title, name, location, day, time, childs_name, age, info, use
     for title, value in classes:
         db.execute(sql, [invitation_id, title, value])
 
+def add_answer(invitation_id, user_id, childs_name, age, message):
+    sql = "INSERT INTO answers (invitation_id, user_id, childs_name, age, message) VALUES (?, ?, ?, ?, ?)"
+    db.execute(sql, [invitation_id, user_id, childs_name, age, message])
+
+def get_answers(invitation_id):
+    sql = """SELECT answers.childs_name, answers.age, answers.message, users.id user_id, users.username
+            FROM answers, users
+            WHERE answers.invitation_id = ? AND answers.user_id = users.id"""
+    return db.query(sql, [invitation_id])
+
 def get_classes(invitation_id):
     sql = "SELECT title, value FROM invitation_classes WHERE invitation_id = ?"
     return db.query(sql, [invitation_id])
@@ -83,3 +93,7 @@ def find_invitations(query):
             ORDER BY id DESC"""
     like = "%" + query + "%"
     return db.query(sql, [like,])
+
+def add_answer(invitation_id, user_id, childs_name, age, message):
+    sql = "INSERT INTO answers (invitation_id, user_id, childs_name, age, message) VALUES (?, ?, ?, ?, ?)"
+    db.execute(sql, [invitation_id, user_id, childs_name, age, message])
