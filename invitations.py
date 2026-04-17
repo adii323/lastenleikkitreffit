@@ -70,6 +70,9 @@ def update_invitation(invitation_id, title, name, location, day, time, childs_na
 
 
 def remove_invitation(invitation_id):
+    sql = "DELETE FROM invitation_classes WHERE invitation_id = ?"""
+    db.execute(sql, [invitation_id])
+
     sql = "DELETE FROM invitations WHERE id = ?"""
     db.execute(sql, [invitation_id])
 
