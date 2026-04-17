@@ -56,4 +56,4 @@ Leikkikaverin nimi: Ville
 Leikkikaverin ikä: 4  
 Lisätietoa: Villellä on mukana oma potkulauta.  
 
-Muiden lisäämiin kusuihin voit antaa vastauksia (vastauslomake näkyy vain, jos olet toisen käyttäjän lisäämässä kutsussa).
+Voit ilmoittautua mukaan muiden leikkitreffeihin (ilmoittautumislomake näkyy vain, jos olet toisen käyttäjän lisäämässä kutsussa).
