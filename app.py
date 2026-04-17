@@ -51,6 +51,7 @@ def show_invitation(invitation_id):
         abort(404)
     classes = invitations.get_classes(invitation_id)
     answers = invitations.get_answers(invitation_id)
+
     return render_template("show_invitation.html", invitation = invitation, classes=classes, answers=answers)
 
 @app.route("/new_invitation")
