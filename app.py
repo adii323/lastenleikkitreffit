@@ -48,7 +48,8 @@ def show_invitation(invitation_id):
 @app.route("/new_invitation")
 def new_invitation():
     require_login()
-    return render_template("new_invitation.html", min_day=date.today().isoformat())
+    classes = invitations.get_all_classes()
+    return render_template("new_invitation.html", min_day=date.today().isoformat(), classes=classes)
 
 @app.route("/create_invitation", methods=["POST"])
 def create_invitation():
@@ -79,15 +80,15 @@ def create_invitation():
     if not childs_name or len(childs_name) > 50:
         abort(403)
     info = request.form["info"]
-    if not info or len(info) > 1000:
-        abort(403)
+
     #print("Create invitation session useride = ", session["user_id"])
     user_id = session["user_id"]
 
     classes = []
-    activity = request.form["activity"]
-    if activity:
-        classes.append(("Tekeminen", activity))
+    for entry in request.form.getlist("classes"):
+        if entry:
+            parts = entry.split(":")
+            classes.append((parts[0], parts[1]))
     
     invitations.add_invitation(title, name, location, day, time, childs_name, age, info, user_id, classes)
 

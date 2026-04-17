@@ -1,5 +1,17 @@
 import db
 
+def get_all_classes():
+    sql = "SELECT title, value FROM classes ORDER BY id"
+    result = db.query(sql)
+
+    classes = {}
+    for title, value in result:
+        classes[title] = []
+    for title, value in result:
+        classes[title].append(value)
+    
+    return classes
+
 def add_invitation(title, name, location, day, time, childs_name, age, info, user_id, classes):
     sql = """INSERT INTO invitations (title, name, location, day, time, childs_name, age, info, user_id) 
     VALUES (?, ? ,?, ?, ?, ?, ?, ?, ?)"""

@@ -12,18 +12,17 @@
       Otsikko: <br />
       <input type="text" name="title" maxlength="50" required/>
     </p>
+    {% for class in classes %}
     <p>
-      Tekeminen: <br />
-      <select name="activity">
+      {{ class }}: <br />
+      <select name="classes">
         <option value="">(valitse)</option>
-        <option value="leikit_kaverin_kotona">leikit_kaverin_kotona</option>
-        <option value="leikit_ulkona_leikkipuistossa">leikit_ulkona_leikkipuistossa</option>
-        <option value="sisäleikkipuisto">sisäleikkipuisto</option>
-        <option value="urheilu">urheilu</option>
-        <option value="uimaranta">uimaranta</option>
-        <option value="muu">muu</option>
+      {% for option in classes[class] %}
+        <option value="{{ class}}:{{ option }}">{{ option }}</option>
+      {% endfor %}
       </select>
     </p>
+    {% endfor %}
     <p>
       Leikkipaikan nimi: <br />
       <input type="text" name="name" maxlength="50" required/>
