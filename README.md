@@ -7,7 +7,7 @@
 - Käyttäjä näkee sovellukseen lisätyt kutsut. Käyttäjä näkee sekä itse lisäämänsä että muiden käyttäjien lisäämät kutsut.
 - Käyttäjä pystyy etsimään kutsuja hakusanalla tai muulla perusteella (esim. sijainti, lapsen ikä). Käyttäjä pystyy hakemaan sekä itse lisäämiään että muiden käyttäjien lisäämiä kutsuja.
 - Sovelluksessa on käyttäjäsivut, jotka näyttävät jokaisesta käyttäjästä tilastoja ja käyttäjän lisäämät kutsut.
-- Käyttäjä pystyy valitsemaan kutsuille yhden tai useamman luokittelun (esim. leikkitreffien tekeminent). Mahdolliset luokat ovat tietokannassa.
+- Käyttäjä pystyy valitsemaan kutsuille yhden tai useamman luokittelun (esim. leikkitreffien tekeminen). Mahdolliset luokat ovat tietokannassa.
 - Sovelluksessa on pääasiallisen tietokohteen (kutsut) lisäksi toissijainen tietokohde (myöntävä vastaus kutsuun), joka täydentää pääasiallista tietokohdetta. Käyttäjä pystyy lisäämään vastauksia muiden käyttäjien kutsuihin liittyen.
 
 ## Sovelluksen asennus (linux-ympäristö):  
@@ -19,7 +19,7 @@ ja siirry hakemistoon:
 ```
 	cd hakemiston_nimi
 ```
-Tallenna hakemistoon sovelluksen githubista löytyvät .py tiedostot, schema.sql-tiedosto sekä templates-kansio sisältöineen (.html-tiedostot).
+Tallenna hakemistoon sovelluksen githubista löytyvät .py-tiedostot, .sql-tiedostot sekä templates-kansio sisältöineen (.html-tiedostot).  
 Luo tietokannan taulut schema.sql-tiedoston avulla: 
 ```
 	sqlite3 database.db < schema.sql
@@ -54,5 +54,6 @@ Päivämäärä: 28.3.2026
 Kellonaika: 15:00  
 Leikkikaverin nimi: Ville  
 Leikkikaverin ikä: 4  
+Lisätietoa: Villellä on mukana oma potkulauta.  
 
 Muiden lisäämiin kusuihin voit antaa vastauksia (vastauslomake näkyy vain, jos olet toisen käyttäjän lisäämässä kutsussa).
