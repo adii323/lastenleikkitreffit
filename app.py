@@ -102,7 +102,19 @@ def edit_invitation(invitation_id):
         abort(404)
     if invitation["user_id"] != session["user_id"]:
         abort(403)
-    return render_template("edit_invitation.html", min_day=date.today().isoformat(), invitation=invitation)
+
+    all_classes = invitations.get_all_classes()
+    print(all_classes)
+    classes = {}
+    for my_class in all_classes:
+        classes[my_class] = ""
+    print(classes)
+    for entry in invitations.get_classes(invitation_id):
+        classes[entry["title"]] = entry["value"]
+    print(classes)
+
+    return render_template("edit_invitation.html", min_day=date.today().isoformat(), invitation=invitation, 
+                           classes=classes, all_classes=all_classes)
 
 @app.route("/update_invitation", methods=["POST"])
 def update_invitation():
@@ -138,10 +150,15 @@ def update_invitation():
     if not age or age < 1 or age > 18:
         abort(403)
     info = request.form["info"]
-    if not info or len(info) > 1000:
-        abort(403)
 
-    invitations.update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info)
+    classes = []
+    for entry in request.form.getlist("classes"):
+        if entry:
+            parts = entry.split(":")
+            classes.append((parts[0], parts[1]))
+    
+
+    invitations.update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info, classes)
 
     return redirect("/invitation/" + str(invitation_id))
 

@@ -12,6 +12,21 @@
       Otsikko: <br />
       <input type="text" name="title" maxlength="50" required value="{{ invitation.title }}"/>
     </p>
+    {% for class in all_classes %}
+    <p>
+      {{ class }}: <br />
+      <select name="classes">
+        <option value="">(valitse)</option>
+      {% for option in all_classes[class] %}
+        {% if classes[class] == option %}
+        <option value="{{ class}}:{{ option }}" selected>{{ option }}</option>
+        {% else %}
+        <option value="{{ class}}:{{ option }}">{{ option }}</option>
+        {% endif %}
+      {% endfor %}
+      </select>
+    </p>
+    {% endfor %}
     <p>
       Leikkipaikan nimi: <br />
       <input type="text" name="name" maxlength="50" required value="{{ invitation.name }}"/>

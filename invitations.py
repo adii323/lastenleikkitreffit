@@ -49,7 +49,7 @@ def get_invitation(invitation_id):
     result = db.query(sql, [invitation_id])
     return result[0] if result else None
 
-def update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info):
+def update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info, classes):
     sql = """UPDATE invitations SET title = ?,
                                     name = ?,
                                     location = ?,
@@ -60,6 +60,13 @@ def update_invitation(invitation_id, title, name, location, day, time, childs_na
                                     info = ?
                                 WHERE id = ?"""
     db.execute(sql, [title, name, location, day, time, childs_name, age, info, invitation_id])
+
+    sql = "DELETE FROM invitation_classes WHERE invitation_id = ?"
+    db.execute(sql, [invitation_id])
+
+    sql = "INSERT INTO invitation_classes (invitation_id, title, value) VALUES (?, ?, ?)"
+    for title, value in classes:
+        db.execute(sql, [invitation_id, title, value])
 
 
 def remove_invitation(invitation_id):
