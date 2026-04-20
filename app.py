@@ -254,21 +254,22 @@ def create_user():
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    return render_template("login.html", next_page=request.referrer)
 
 @app.route("/check", methods=["POST"])
 def check():
     username = request.form["username"]
     password = request.form["password"]
+    next_page = request.form["next_page"]
 
     user_id = users.check_login(username, password)
     if user_id:
         session["user_id"] = user_id
         session["username"] = username
         session["csrf_token"] = secrets.token_hex(16)
-        return redirect("/")
+        return redirect(next_page)
     else:
-        return render_template("login.html", error="Väärä käyttäjänimi tai salasana"), 400
+        return render_template("login.html", error="Väärä käyttäjänimi tai salasana", next_page=next_page), 400
 
 
 @app.route("/logout")

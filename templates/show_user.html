@@ -7,7 +7,10 @@
 
 <body>
   <h1>Käyttäjä {{ user.username }}</h1>
-  <h2>Kutsusi:</h2>
+  <h2>Käyttäjän kutsut:</h2>
+  <p>
+    Käyttäjä on lähettänyt {{ invitations | count }} kutsua
+  </p>
   <ul>
     {% for invitation in invitations %}
     <li>
