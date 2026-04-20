@@ -9,13 +9,24 @@
   <h1>Käyttäjä {{ user.username }}</h1>
   <h2>Käyttäjän kutsut:</h2>
   <p>
+    {% if invitations | count == 1 %}
+    Käyttäjä on lähettänyt {{ invitations | count }} kutsun
+    {% else %}
     Käyttäjä on lähettänyt {{ invitations | count }} kutsua
+    {% endif %}
   </p>
   <ul>
     {% for invitation in invitations %}
     <li>
       <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> 
-      Ajankohta: {{ invitation.day}} {{ invitation.time}} Paikka: {{ invitation.location}}
+      Ajankohta: {{ invitation.day}} {{ invitation.time}} Paikka: {{ invitation.location}} <br />
+      {% if session.user_id == invitation.user_id %}
+        {% if answers[loop.index0] | length == 1 %}
+        Kutsuun on tullut {{ answers[loop.index0] | length }} vastaus.
+        {% else %}
+        Kutsuun on tullut {{ answers[loop.index0] | length }} vastausta.
+        {% endif %}
+      {% endif %}
     </li>
     {% endfor %}
   </ul>

@@ -31,8 +31,14 @@ def show_user(user_id):
     user = users.get_user(user_id)
     if not user:
         abort(404)
-    invitations = users.get_invitations(user_id)
-    return render_template("show_user.html", user = user, invitations=invitations)
+    my_invitations = users.get_invitations(user_id)
+    invitation_ids = []
+    for invitation in my_invitations:
+        invitation_ids.append(invitation["id"])
+    answers = []
+    for invitation_id in invitation_ids:
+        answers.append(invitations.get_answers(invitation_id))
+    return render_template("show_user.html", user = user, invitations=my_invitations, answers=answers)
 
 @app.route("/find_invitations")
 def find_invitations():
