@@ -6,30 +6,22 @@
 </head>
 
 <body>
-  <h1>Etusivu</h1>
-  <p>
-    <b>Tervetuloa</b> <i>Lasten leikkitreffit -sovellukseen</i>!
-  </p>
+  <h1>Lasten leikkitreffit</h1>
+
   {% if session.username %}
   <p>
     Olet kirjautunut nimellä {{ session.username }}
   </p>
   <p>
-    <a href="/new_invitation">Uusi kutsu</a>
-    <a href="/logout">Kirjaudu ulos</a>
-  </p>
-  <p>
-    <a href="/find_invitations">Etsi kutsuja</a>
-  </p>
-  <p>
-    <a href="/user/{{ session.user_id }}">Katso käyttäjäsivusi</a>
+    <a href="/new_invitation">Uusi kutsu</a> |
+    <a href="/find_invitations">Etsi kutsuja</a> |
+    <a href="/user/{{ session.user_id }}">Katso käyttäjäsivusi</a> |
+    <a href="/logout">Kirjaudu ulos</a> 
   </p>
   {% else %}
   <p>
-    <a href="/login">Kirjaudu sisään</a>
-    <a href="/register">Luo tunnus</a>
-  </p>
-  <p>
+    <a href="/login">Kirjaudu sisään</a> |
+    <a href="/register">Luo tunnus</a> |
     <a href="/find_invitations">Etsi kutsuja</a>
   </p>
   {% endif %}
