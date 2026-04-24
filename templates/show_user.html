@@ -1,39 +1,40 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Käyttäjä {{ user.username }}</title>
-</head>
+{% block title %}Kayttäjä {{ user.username }}{% endblock %}
 
-<body>
-  <h1>Käyttäjä {{ user.username }}</h1>
-  <h2>Käyttäjän kutsut:</h2>
-  <p>
-    {% if invitations | count == 1 %}
+{% block content %}
+
+<h2>Käyttäjä {{ user.username }}</h2>
+<h3>Käyttäjän kutsut:</h3>
+<p>
+  {% if invitations | count == 1 %}
+    {% if user.id == session.user_id %}
+    Olet lähettänyt {{ invitations | count }} kutsun
+    {% else %}
     Käyttäjä on lähettänyt {{ invitations | count }} kutsun
+    {% endif %}
+  {% else %}
+    {% if user.id == session.user_id %}
+    Olet lähettänyt {{ invitations | count }} kutsua
     {% else %}
     Käyttäjä on lähettänyt {{ invitations | count }} kutsua
     {% endif %}
-  </p>
-  <ul>
-    {% for invitation in invitations %}
-    <li>
-      <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> 
-      Ajankohta: {{ invitation.day}} {{ invitation.time}} Paikka: {{ invitation.location}} <br />
-      {% if session.user_id == invitation.user_id %}
-        {% if answers[loop.index0] | length == 1 %}
-        Kutsuun on tullut {{ answers[loop.index0] | length }} vastaus.
-        {% else %}
-        Kutsuun on tullut {{ answers[loop.index0] | length }} vastausta.
-        {% endif %}
+  {% endif %}
+</p>
+<ul>
+  {% for invitation in invitations %}
+  <li>
+    <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> 
+    Ajankohta: {{ invitation.day}} {{ invitation.time}} Paikka: {{ invitation.location}} <br />
+    {% if session.user_id == invitation.user_id %}
+      {% if answers[loop.index0] | length == 1 %}
+      Kutsuun on tullut {{ answers[loop.index0] | length }} vastaus.
+      {% else %}
+      Kutsuun on tullut {{ answers[loop.index0] | length }} vastausta.
       {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
-  <p>
-    <a href="/">Takaisin</a>
-  </p>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
 
-</body>
-
-</html>
+  {% endblock %}

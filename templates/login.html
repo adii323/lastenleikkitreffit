@@ -1,38 +1,30 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Kirjautuminen</title>
-</head>
+{% block title %}Kirjaudu sisään{% endblock %}
 
-<body>
-  {% if error %}
-    <div class="error">{{ error }}</div>
-  {% endif %}
-  {% if message %}
-    <div class="error">{{ message }}</div>
-  {% endif %}
+{% block content %}
+<h2>Kirjaudu sisään</h2>
+{% if error %}
+  <div class="error">{{ error }}</div>
+{% endif %}
+{% if message %}
+  <div class="error">{{ message }}</div>
+{% endif %}
 
-  <form action="/check" method="post">
-    <p>
-      Tunnus: <br />
-      <input type="text" name="username" />
-    </p>
-    <p>
-      Salasana: <br />
-      <input type="password" name="password" />
-    </p>
-    {% if next_page %}
-    <input type="hidden" name="next_page" value="{{ next_page }}" />
-    {% else %}
-    <input type="hidden" name="next_page" value="/" />
-    {% endif %}
-    <input type="submit" value="Kirjaudu" />
-  </form>
+<form action="/check" method="post">
   <p>
-    Eikö sinulla oli käyttäjänimeä? <br />
-    <a href="/register">Luo tunnus</a>
+    Tunnus: <br />
+    <input type="text" name="username" />
   </p>
-</body>
-
-</html>
+  <p>
+    Salasana: <br />
+    <input type="password" name="password" />
+  </p>
+  {% if next_page %}
+  <input type="hidden" name="next_page" value="{{ next_page }}" />
+  {% else %}
+  <input type="hidden" name="next_page" value="/" />
+  {% endif %}
+  <input type="submit" value="Kirjaudu" />
+</form>
+{% endblock %}

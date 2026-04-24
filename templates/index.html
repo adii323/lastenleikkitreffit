@@ -1,41 +1,16 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Lasten leikkitreffit</title>
-</head>
+{% block title %}Lasten leikkitreffit{% endblock %}
 
-<body>
-  <h1>Lasten leikkitreffit</h1>
+{% block content %}
+<h2>Kutsut</h2>
 
-  {% if session.username %}
-  <p>
-    Olet kirjautunut nimellä {{ session.username }}
-  </p>
-  <p>
-    <a href="/new_invitation">Uusi kutsu</a> |
-    <a href="/find_invitations">Etsi kutsuja</a> |
-    <a href="/user/{{ session.user_id }}">Katso käyttäjäsivusi</a> |
-    <a href="/logout">Kirjaudu ulos</a> 
-  </p>
-  {% else %}
-  <p>
-    <a href="/login">Kirjaudu sisään</a> |
-    <a href="/register">Luo tunnus</a> |
-    <a href="/find_invitations">Etsi kutsuja</a>
-  </p>
-  {% endif %}
-
-  <h2>Kutsut</h2>
-
-  <ul>
-    {% for invitation in invitations %}
-    <li>
-      <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> 
-      Ajankohta: {{ invitation.day}} {{ invitation.time}} Paikka: {{ invitation.location}}
-    </li>
-    {% endfor %}
-  </ul>
-</body>
-
-</html>
+<ul>
+  {% for invitation in invitations %}
+  <li>
+    <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> 
+    Ajankohta: {{ invitation.day}} {{ invitation.time}} Paikka: {{ invitation.location}}
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

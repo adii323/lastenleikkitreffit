@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Kutsun muokkaus</title>
-</head>
+{% block title %}Kutsun muokkaus{% endblock %}
 
-<body>
-  <h1>Kutsun muokkaus</h1>
+{% block content %}
+  <h2>Kutsu: {{ invitation.title }}</h2>
   <form action="/update_invitation" method="post">
     <p>
       Otsikko: <br />
@@ -76,6 +73,4 @@
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" value="Päivitä kutsua" />
   </form>
-</body>
-
-</html>
+{% endblock %}

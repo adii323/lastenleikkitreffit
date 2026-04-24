@@ -1,117 +1,109 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>{{ invitation.title }}</title>
-</head>
+{% block title %}{{ invitation.title }}{% endblock %}
 
-<body>
-  <h1>{{ invitation.title }}</h1>
-  {% if session.user_id == invitation.user_id %}
-  <p>
-    <a href="/edit_invitation/{{ invitation.id }}">Muokkaa</a>
-    <a href="/remove_invitation/{{ invitation.id }}">Poista</a>
-  </p>
-  {% endif %}
-  {% if classes %}
-  <p>
-    Tekeminen:
-    <ul>
-      {% for class in classes %}
-      <li>{{ class.value }}</li>
-      {% endfor %}
-    </ul>
-  </p>
-  {% endif %}
-  <p>
-    Leikkipaikan nimi: {{ invitation.name }}
-  </p>
-  <p>
-    Leikkipaikan osoite: {{ invitation.location }}
-  </p>
-  <p>
-    Ajankohta: {{ invitation.day}} klo {{ invitation.time }}
-  </p>
-  <p>
-    Leikkikaverin nimi: {{ invitation.childs_name }}
-  </p>
-  <p>
-    Leikkikaverin ikä: {{ invitation.age }}
-  </p>
-  <p>
-    Kutsuja: <a href="/user/{{ invitation.user_id }}">{{ invitation.username }}</a>
-  </p>
-  <p>
-    Lisätietoa: {{ invitation.info }}
-  </p>
-  {% if answers | count > 0 %}
-  <h2>Ilmoittautumiset</h2>
+{% block content %}
+
+<h2>Kutsu: {{ invitation.title }}</h2>
+<p>
+  Kutsuja: <a href="/user/{{ invitation.user_id }}">{{ invitation.username }}</a>
+</p>
+{% if session.user_id == invitation.user_id %}
+<p>
+  <a href="/edit_invitation/{{ invitation.id }}">Muokkaa</a>
+  <a href="/remove_invitation/{{ invitation.id }}">Poista</a>
+</p>
+{% endif %}
+{% if classes %}
+<p>
+  Tekeminen:
   <ul>
-    {% for answer in answers %}
-    <li>
-      Leikkikaveri: {{ answer.childs_name }} {{ answer.age }} vuotta, 
-      vastaaja: <a href="/user/{{ answer.user_id }}">{{ answer.username }}</a>
-      {% if session.user_id == invitation.user_id %} <br />
-      Viesti: {{ answer.message }}
-      {% endif %}
-    </li>
+    {% for class in classes %}
+    <li>{{ class.value }}</li>
     {% endfor %}
-  {% endif %}
   </ul>
-  {% if session.user_id %}
-    {% if session.user_id != invitation.user_id %}
-    <h3>Ilmoittaudu mukaan leikkitreffeille</h3>
-    <form action="/create_answer" method="post">
-      <p>
-        Leikkikaverin nimi: <br />
-        <input type="text" name="childs_name" size="5" maxlength="50" required/>
-      </p>
-      <p>
-        Leikkikaverin ikä: <br />
-        <select id="age" name="age" required>
-          <option value="" disabled selected>Valitse ikä</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-          <option value="13">13</option>
-          <option value="14">14</option>
-          <option value="15">15</option>
-          <option value="16">16</option>
-          <option value="17">17</option>
-          <option value="18">18</option>
-        </select>
-      <p>
-      <p>
-        Viesti kutsujalle: <br />
-        <textarea name="message" rows="8" cols="60" maxlength="1000" required></textarea>
-      </p>
-      <p>
-      Vastaaja: <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
-      </p>
-      <input type="hidden" name="invitation_id" value="{{ invitation.id }}">
-      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-      <input type="submit" value="Ilmoittaudu" />
-    </form>
+</p>
+{% endif %}
+<p>
+  Leikkipaikan nimi: {{ invitation.name }}
+</p>
+<p>
+  Leikkipaikan osoite: {{ invitation.location }}
+</p>
+<p>
+  Ajankohta: {{ invitation.day}} klo {{ invitation.time }}
+</p>
+<p>
+  Leikkikaverin nimi: {{ invitation.childs_name }}
+</p>
+<p>
+  Leikkikaverin ikä: {{ invitation.age }}
+</p>
+<p>
+  Lisätietoa: {{ invitation.info }}
+</p>
+{% if answers | count > 0 %}
+<h2>Ilmoittautumiset</h2>
+<ul>
+  {% for answer in answers %}
+  <li>
+    Leikkikaveri: {{ answer.childs_name }} {{ answer.age }} vuotta, 
+    vastaaja: <a href="/user/{{ answer.user_id }}">{{ answer.username }}</a>
+    {% if session.user_id == invitation.user_id %} <br />
+    Viesti: {{ answer.message }}
     {% endif %}
-  {% else %}
+  </li>
+  {% endfor %}
+{% endif %}
+</ul>
+{% if session.user_id %}
+  {% if session.user_id != invitation.user_id %}
+  <h3>Ilmoittaudu mukaan leikkitreffeille</h3>
+  <form action="/create_answer" method="post">
     <p>
-    Kirjaudu sisään ilmoittautuaksesi mukaan leikkitreffeille: <a href="/login">Kirjaudu sisään</a>
+      Leikkikaverin nimi: <br />
+      <input type="text" name="childs_name" size="5" maxlength="50" required/>
     </p>
+    <p>
+      Leikkikaverin ikä: <br />
+      <select id="age" name="age" required>
+        <option value="" disabled selected>Valitse ikä</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+      </select>
+    <p>
+    <p>
+      Viesti kutsujalle: <br />
+      <textarea name="message" rows="8" cols="60" maxlength="1000" required></textarea>
+    </p>
+    <p>
+    Vastaaja: <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
+    </p>
+    <input type="hidden" name="invitation_id" value="{{ invitation.id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <input type="submit" value="Ilmoittaudu" />
+  </form>
   {% endif %}
-
+{% else %}
   <p>
-    <a href="/">Takaisin</a>
+  Kirjaudu sisään ilmoittautuaksesi mukaan leikkitreffeille: <a href="/login">Kirjaudu sisään</a>
   </p>
+{% endif %}
 
-</body>
-
-</html>
+{% endblock %}

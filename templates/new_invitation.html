@@ -1,80 +1,72 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Lisää uusi kutsu</title>
-</head>
+{% block title %}Lisää uusi kutsu{% endblock %}
 
-<body>
-  <h1>Uusi kutsu</h1>
-  <form action="/create_invitation" method="post">
-    <p>
-      Otsikko: <br />
-      <input type="text" name="title" maxlength="50" required/>
-    </p>
-    {% for class in classes %}
-    <p>
-      {{ class }}: <br />
-      <select name="classes">
-        <option value="">(valitse)</option>
-      {% for option in classes[class] %}
-        <option value="{{ class}}:{{ option }}">{{ option }}</option>
-      {% endfor %}
-      </select>
-    </p>
-    {% endfor %}
-    <p>
-      Leikkipaikan nimi: <br />
-      <input type="text" name="name" maxlength="50" required/>
-    </p>
-    <p>
-      Leikkipaikan osoite: <br />
-      <input type="text" name="location" maxlength="50" required/>
-    </p>
-    <p>
-      Leikkiaika: <br />
-      Päivämäärä: <input type="date" name="day" min="{{ min_day }}" required/> <br />
-      Kellonaika: <input type="time" name="time" required/>
-    </p>
-    <p>
-      Leikkikaverin nimi: <br />
-      <input type="text" name="childs_name" size="5" maxlength="50" required/>
-    </p>
-    <p>
-      Leikkikaverin ikä: <br />
-      <select id="age" name="age" required>
-        <option value="" disabled selected>Valitse ikä</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-        <option value="16">16</option>
-        <option value="17">17</option>
-        <option value="18">18</option>
-      </select>
-    <p>
-      Lisätietoa (esim. lapsen kiinnostuksen kohteet, eläinallergiat jne.): <br />
-      <textarea name="info" rows="8" cols="60" maxlength="1000"></textarea>
-    </p>
-    </p>
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-    <input type="submit" value="Lisää kutsu" />
-  </form>
-
+{% block content %}
+<h2>Uusi kutsu</h2>
+<form action="/create_invitation" method="post">
   <p>
-    <a href="/">Takaisin</a>
+    Otsikko: <br />
+    <input type="text" name="title" maxlength="50" required/>
   </p>
-</body>
+  {% for class in classes %}
+  <p>
+    {{ class }}: <br />
+    <select name="classes">
+      <option value="">(valitse)</option>
+    {% for option in classes[class] %}
+      <option value="{{ class}}:{{ option }}">{{ option }}</option>
+    {% endfor %}
+    </select>
+  </p>
+  {% endfor %}
+  <p>
+    Leikkipaikan nimi: <br />
+    <input type="text" name="name" maxlength="50" required/>
+  </p>
+  <p>
+    Leikkipaikan osoite: <br />
+    <input type="text" name="location" maxlength="50" required/>
+  </p>
+  <p>
+    Leikkiaika: <br />
+    Päivämäärä: <input type="date" name="day" min="{{ min_day }}" required/> <br />
+    Kellonaika: <input type="time" name="time" required/>
+  </p>
+  <p>
+    Leikkikaverin nimi: <br />
+    <input type="text" name="childs_name" size="5" maxlength="50" required/>
+  </p>
+  <p>
+    Leikkikaverin ikä: <br />
+    <select id="age" name="age" required>
+      <option value="" disabled selected>Valitse ikä</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16">16</option>
+      <option value="17">17</option>
+      <option value="18">18</option>
+    </select>
+  <p>
+    Lisätietoa (esim. lapsen kiinnostuksen kohteet, eläinallergiat jne.): <br />
+    <textarea name="info" rows="8" cols="60" maxlength="1000"></textarea>
+  </p>
+  </p>
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+  <input type="submit" value="Lisää kutsu" />
+</form>
 
-</html>
+{% endblock %}
