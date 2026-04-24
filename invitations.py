@@ -83,6 +83,9 @@ def remove_invitation(invitation_id):
     sql = "DELETE FROM invitation_classes WHERE invitation_id = ?"""
     db.execute(sql, [invitation_id])
 
+    sql = "DELETE FROM answers WHERE invitation_id = ?"
+    db.execute(sql, [invitation_id])
+
     sql = "DELETE FROM invitations WHERE id = ?"""
     db.execute(sql, [invitation_id])
 
@@ -92,7 +95,7 @@ def find_invitations(query):
             WHERE title LIKE ? OR name LIKE ?
             ORDER BY id DESC"""
     like = "%" + query + "%"
-    return db.query(sql, [like,])
+    return db.query(sql, [like, like])
 
 def add_answer(invitation_id, user_id, childs_name, age, message):
     sql = "INSERT INTO answers (invitation_id, user_id, childs_name, age, message) VALUES (?, ?, ?, ?, ?)"

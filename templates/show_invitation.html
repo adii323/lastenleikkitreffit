@@ -43,6 +43,8 @@
   </p>
   <p>
     Lisätietoa: {{ invitation.info }}
+  </p>
+  {% if answers | count > 0 %}
   <h2>Ilmoittautumiset</h2>
   <ul>
     {% for answer in answers %}
@@ -54,6 +56,7 @@
       {% endif %}
     </li>
     {% endfor %}
+  {% endif %}
   </ul>
   {% if session.user_id %}
     {% if session.user_id != invitation.user_id %}
