@@ -71,6 +71,7 @@
     </p>
     <input type="hidden" name="invitation_id" value="{{ invitation.id}}" />
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-    <input type="submit" value="Päivitä kutsua" />
+    <input type="submit" name="update" value="Päivitä kutsua" />
+    <input type="submit" name="back" value="Palaa takaisin">
   </form>
 {% endblock %}

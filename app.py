@@ -214,10 +214,12 @@ def update_invitation():
                 abort(403)
             classes.append((class_title, class_value))
     
+    if "update" in request.form:
+        invitations.update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info, classes)
+        return redirect("/invitation/" + str(invitation_id))
+    else:
+        return redirect("/invitation/" + str(invitation_id))
 
-    invitations.update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info, classes)
-
-    return redirect("/invitation/" + str(invitation_id))
 
 @app.route("/remove_invitation/<int:invitation_id>", methods=["GET", "POST"])
 def remove_invitation(invitation_id):
