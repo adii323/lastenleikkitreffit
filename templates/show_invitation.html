@@ -40,10 +40,10 @@
   Leikkikaverin ikä: {{ invitation.age }}
 </p>
 <p>
-  Lisätietoa: {{ invitation.info }}
+  Lisätietoa: <br> {{ invitation.info | replace('\n', '<br>') | safe }}
 </p>
-{% if answers | count > 0 %}
 <h2>Ilmoittautumiset</h2>
+{% if answers | count > 0 %}
 <ul>
   {% for answer in answers %}
   <li>
@@ -54,6 +54,10 @@
     {% endif %}
   </li>
   {% endfor %}
+{% else %}
+<p>
+  Ei vielä ilmoittautumisia
+</p>
 {% endif %}
 </ul>
 {% if session.user_id %}

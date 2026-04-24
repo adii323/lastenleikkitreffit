@@ -38,7 +38,11 @@ def get_classes(invitation_id):
     return db.query(sql, [invitation_id])
 
 def get_invitations():
-    sql = "SELECT id, title, location, day, time FROM invitations ORDER BY id DESC"
+    sql = """SELECT invitations.id, invitations.title, invitations.location, invitations.day, invitations.time,
+            users.id user_id, users.username 
+            FROM invitations, users
+            WHERE invitations.user_id = users.id
+            ORDER BY invitations.id DESC"""
     return db.query(sql)
 
 def get_invitation(invitation_id):
