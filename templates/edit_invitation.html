@@ -3,75 +3,77 @@
 {% block title %}Kutsun muokkaus{% endblock %}
 
 {% block content %}
-  <h2>Kutsu: {{ invitation.title }}</h2>
-  <form action="/update_invitation" method="post">
-    <p>
-      Otsikko: <br />
-      <input type="text" name="title" maxlength="50" required value="{{ invitation.title }}"/>
-    </p>
-    {% for class in all_classes %}
-    <p>
-      {{ class }}: <br />
-      <select name="classes">
-        <option value="">(valitse)</option>
-      {% for option in all_classes[class] %}
-        {% if classes[class] == option %}
-        <option value="{{ class}}:{{ option }}" selected>{{ option }}</option>
-        {% else %}
-        <option value="{{ class}}:{{ option }}">{{ option }}</option>
-        {% endif %}
-      {% endfor %}
-      </select>
-    </p>
+<div class="invitations">
+<h2>Kutsu: {{ invitation.title }}</h2>
+<form action="/update_invitation" method="post">
+  <p>
+    Otsikko: <br />
+    <input type="text" name="title" maxlength="50" required value="{{ invitation.title }}"/>
+  </p>
+  {% for class in all_classes %}
+  <p>
+    {{ class }}: <br />
+    <select name="classes">
+      <option value="">(valitse)</option>
+    {% for option in all_classes[class] %}
+      {% if classes[class] == option %}
+      <option value="{{ class}}:{{ option }}" selected>{{ option }}</option>
+      {% else %}
+      <option value="{{ class}}:{{ option }}">{{ option }}</option>
+      {% endif %}
     {% endfor %}
-    <p>
-      Leikkipaikan nimi: <br />
-      <input type="text" name="name" maxlength="50" required value="{{ invitation.name }}"/>
-    </p>
-    <p>
-      Leikkipaikan osoite: <br />
-      <input type="text" name="location" maxlength="50" required value="{{ invitation.location }}"/>
-    </p>
-    <p>
-      Leikkiaika: <br />
-      Päivämäärä: <input type="date" name="day" min="{{ min_day }}" required value="{{ invitation.day }}"/> <br />
-      Kellonaika: <input type="time" name="time" required value="{{ invitation.time }}"/>
-    </p>
-    <p>
-      Leikkikaverin nimi: <br />
-      <input type="text" name="childs_name" size="5" maxlength="50" required value="{{ invitation.childs_name }}"/>
-    </p>
-    <p>
-      Leikkikaverin ikä: <br />
-      <select id="age" name="age" required>
-        <option value="" disabled selected>Valitse ikä</option>
-        <option value="1"{% if invitation.age|int == 1 %}selected{% endif %} >1</option>
-        <option value="2"{% if invitation.age|int == 2 %}selected{% endif %} >2</option>
-        <option value="3"{% if invitation.age|int == 3 %}selected{% endif %} >3</option>
-        <option value="4"{% if invitation.age|int == 4 %}selected{% endif %} >4</option>
-        <option value="5"{% if invitation.age|int == 5 %}selected{% endif %} >5</option>
-        <option value="6"{% if invitation.age|int == 6 %}selected{% endif %} >6</option>
-        <option value="7"{% if invitation.age|int == 7 %}selected{% endif %} >7</option>
-        <option value="8"{% if invitation.age|int == 8 %}selected{% endif %} >8</option>
-        <option value="9"{% if invitation.age|int == 9 %}selected{% endif %} >9</option>
-        <option value="10"{% if invitation.age|int == 10 %}selected{% endif %} >10</option>
-        <option value="11"{% if invitation.age|int == 11 %}selected{% endif %} >11</option>
-        <option value="12"{% if invitation.age|int == 12 %}selected{% endif %} >12</option>
-        <option value="13"{% if invitation.age|int == 13 %}selected{% endif %} >13</option>
-        <option value="14"{% if invitation.age|int == 14 %}selected{% endif %} >14</option>
-        <option value="15"{% if invitation.age|int == 15 %}selected{% endif %} >15</option>
-        <option value="16"{% if invitation.age|int == 16 %}selected{% endif %} >16</option>
-        <option value="17"{% if invitation.age|int == 17 %}selected{% endif %} >17</option>
-        <option value="18"{% if invitation.age|int == 1 %}selected{% endif %} >18</option>
-      </select>
-    </p>
-    <p>
-      Lisätietoa (esim. lapsen kiinnostuksen kohteet, eläinallergiat, jne.):: <br />
-      <textarea name="info" rows="8" cols="60" maxlength="1000">{{ invitation.info }}</textarea>
-    </p>
-    <input type="hidden" name="invitation_id" value="{{ invitation.id}}" />
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-    <input type="submit" name="update" value="Päivitä kutsua" />
-    <input type="submit" name="back" value="Palaa takaisin">
-  </form>
+    </select>
+  </p>
+  {% endfor %}
+  <p>
+    Leikkipaikan nimi: <br />
+    <input type="text" name="name" maxlength="50" required value="{{ invitation.name }}"/>
+  </p>
+  <p>
+    Leikkipaikan osoite: <br />
+    <input type="text" name="location" maxlength="50" required value="{{ invitation.location }}"/>
+  </p>
+  <p>
+    Leikkiaika: <br />
+    Päivämäärä: <input type="date" name="day" min="{{ min_day }}" required value="{{ invitation.day }}"/> <br />
+    Kellonaika: <input type="time" name="time" required value="{{ invitation.time }}"/>
+  </p>
+  <p>
+    Leikkikaverin nimi: <br />
+    <input type="text" name="childs_name" size="5" maxlength="50" required value="{{ invitation.childs_name }}"/>
+  </p>
+  <p>
+    Leikkikaverin ikä: <br />
+    <select id="age" name="age" required>
+      <option value="" disabled selected>Valitse ikä</option>
+      <option value="1"{% if invitation.age|int == 1 %}selected{% endif %} >1</option>
+      <option value="2"{% if invitation.age|int == 2 %}selected{% endif %} >2</option>
+      <option value="3"{% if invitation.age|int == 3 %}selected{% endif %} >3</option>
+      <option value="4"{% if invitation.age|int == 4 %}selected{% endif %} >4</option>
+      <option value="5"{% if invitation.age|int == 5 %}selected{% endif %} >5</option>
+      <option value="6"{% if invitation.age|int == 6 %}selected{% endif %} >6</option>
+      <option value="7"{% if invitation.age|int == 7 %}selected{% endif %} >7</option>
+      <option value="8"{% if invitation.age|int == 8 %}selected{% endif %} >8</option>
+      <option value="9"{% if invitation.age|int == 9 %}selected{% endif %} >9</option>
+      <option value="10"{% if invitation.age|int == 10 %}selected{% endif %} >10</option>
+      <option value="11"{% if invitation.age|int == 11 %}selected{% endif %} >11</option>
+      <option value="12"{% if invitation.age|int == 12 %}selected{% endif %} >12</option>
+      <option value="13"{% if invitation.age|int == 13 %}selected{% endif %} >13</option>
+      <option value="14"{% if invitation.age|int == 14 %}selected{% endif %} >14</option>
+      <option value="15"{% if invitation.age|int == 15 %}selected{% endif %} >15</option>
+      <option value="16"{% if invitation.age|int == 16 %}selected{% endif %} >16</option>
+      <option value="17"{% if invitation.age|int == 17 %}selected{% endif %} >17</option>
+      <option value="18"{% if invitation.age|int == 1 %}selected{% endif %} >18</option>
+    </select>
+  </p>
+  <p>
+    Lisätietoa (esim. lapsen kiinnostuksen kohteet, eläinallergiat, jne.):: <br />
+    <textarea name="info" rows="8" cols="60" maxlength="1000">{{ invitation.info }}</textarea>
+  </p>
+  <input type="hidden" name="invitation_id" value="{{ invitation.id}}" />
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+  <input type="submit" name="update" value="Päivitä kutsua" />
+  <input type="submit" name="back" value="Palaa takaisin">
+</form>
+</div>
 {% endblock %}

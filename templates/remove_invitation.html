@@ -3,6 +3,7 @@
 {% block title %}Kutsun poisto{% endblock %}
 
 {% block content %}
+<div class="invitations">
 <h2>Kutsun poisto</h2>
 <h3>Kutsu: {{ invitation.title }} </h3>
 <p>Haluatko varmasti poistaa tämän kutsun?</p>
@@ -11,4 +12,5 @@
   <input type="submit" name="remove" value="Poista ilmoitus">
   <input type="submit" name="back" value="Palaa takaisin">
 </form>
+</div>
 {% endblock %}

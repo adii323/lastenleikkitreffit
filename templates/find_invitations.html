@@ -3,6 +3,7 @@
 {% block title %}Etsi ilmoitus{% endblock %}
 
 {% block content %}
+<div class="invitations">
 <h2>Etsi kutsuja</h2>
 
 <form action="/find_invitations" method="get">
@@ -22,5 +23,5 @@
   {% endfor %}
 </ul>
 {% endif %}
-
+</div>
 {% endblock %}

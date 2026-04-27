@@ -3,6 +3,7 @@
 {% block title %}Lisää uusi kutsu{% endblock %}
 
 {% block content %}
+<div class="invitations">
 <h2>Uusi kutsu</h2>
 <form action="/create_invitation" method="post">
   <p>
@@ -60,13 +61,13 @@
       <option value="17">17</option>
       <option value="18">18</option>
     </select>
+  </p>
   <p>
     Lisätietoa (esim. lapsen kiinnostuksen kohteet, eläinallergiat jne.): <br />
     <textarea name="info" rows="8" cols="60" maxlength="1000"></textarea>
   </p>
-  </p>
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="Lisää kutsu" />
 </form>
-
+</div>
 {% endblock %}

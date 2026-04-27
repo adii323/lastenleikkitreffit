@@ -7,12 +7,14 @@
 </head>
 
 <body>
+  <div class="header">
   <h1>Lasten leikkitreffit</h1>
-
   {% if session.username %}
-  <p>
-    Olet kirjautunut nimellä {{ session.username }}
-  </p>
+    <p class="user">Kirjautunut käyttäjä: {{ session.username }}</p>
+  {% endif %}
+  </div>
+  {% if session.username %}
+  <div class="nav">
   <p>
     <a href="/">Etusivu</a> |
     <a href="/new_invitation">Uusi kutsu</a> |
@@ -28,6 +30,7 @@
     <a href="/find_invitations">Etsi kutsuja</a>
   {% endif %}
   </p>
+  </div>
 
   {% block content %}{% endblock %}
 

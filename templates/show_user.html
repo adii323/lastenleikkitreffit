@@ -5,6 +5,7 @@
 {% block content %}
 
 <h2>Käyttäjä {{ user.username }}</h2>
+<div class="invitations">
 <h3>Käyttäjän kutsut:</h3>
 <p>
   {% if invitations | count == 1 %}
@@ -36,5 +37,5 @@
   </li>
   {% endfor %}
 </ul>
-
-  {% endblock %}
+</div>
+{% endblock %}

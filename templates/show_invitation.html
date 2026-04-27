@@ -3,7 +3,7 @@
 {% block title %}{{ invitation.title }}{% endblock %}
 
 {% block content %}
-
+<div class="invitations">
 <h2>Kutsu: {{ invitation.title }}</h2>
 <p>
   Kutsuja: <a href="/user/{{ invitation.user_id }}">{{ invitation.username }}</a>
@@ -42,6 +42,8 @@
 <p>
   Lisätietoa: <br> {{ invitation.info | replace('\n', '<br>') | safe }}
 </p>
+</div>
+<div class="answers">
 <h2>Ilmoittautumiset</h2>
 {% if answers | count > 0 %}
 <ul>
@@ -109,5 +111,5 @@
   Kirjaudu sisään ilmoittautuaksesi mukaan leikkitreffeille: <a href="/login">Kirjaudu sisään</a>
   </p>
 {% endif %}
-
+</div>
 {% endblock %}
