@@ -46,6 +46,23 @@ body {
   border-radius: 20px;
 }
 
+.inv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  gap: 12px;                      
+}
+
+.inv-title {
+  margin: 0;
+}
+
+.inv-user-actions a {
+  margin-left: 10px;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
 .answers {
   background-color: rgb(203, 166, 238);
   padding: 0.5em 1.2em;

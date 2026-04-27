@@ -4,44 +4,31 @@
 
 {% block content %}
 <div class="invitations">
-<h2>Kutsu: {{ invitation.title }}</h2>
-<p>
+  <div class="inv-header">
+    <h2 class="inv-title">Kutsu: {{ invitation.title }}</h2>
+    {% if session.user_id == invitation.user_id %}
+      <div class="inv-user-actions">
+        <a href="/edit_invitation/{{ invitation.id }}">Muokkaa</a>
+        <a href="/remove_invitation/{{ invitation.id }}">Poista</a>
+      </div>
+    {% endif %}
+  </div>
+  <p>
   Kutsuja: <a href="/user/{{ invitation.user_id }}">{{ invitation.username }}</a>
-</p>
-{% if session.user_id == invitation.user_id %}
-<p>
-  <a href="/edit_invitation/{{ invitation.id }}">Muokkaa</a>
-  <a href="/remove_invitation/{{ invitation.id }}">Poista</a>
-</p>
-{% endif %}
-{% if classes %}
-<p>
-  Tekeminen:
+  </p>
   <ul>
+  {% if classes %}
     {% for class in classes %}
-    <li>{{ class.value }}</li>
-    {% endfor %}
-  </ul>
-</p>
-{% endif %}
-<p>
-  Leikkipaikan nimi: {{ invitation.name }}
-</p>
-<p>
-  Leikkipaikan osoite: {{ invitation.location }}
-</p>
-<p>
-  Ajankohta: {{ invitation.day}} klo {{ invitation.time }}
-</p>
-<p>
-  Leikkikaverin nimi: {{ invitation.childs_name }}
-</p>
-<p>
-  Leikkikaverin ikä: {{ invitation.age }}
-</p>
-<p>
-  Lisätietoa: <br> {{ invitation.info | replace('\n', '<br>') | safe }}
-</p>
+    <li>{{ class.title }}: {{ class.value }}</li>
+      {% endfor %}
+  {% endif %}
+  <li>Leikkipaikan nimi: {{ invitation.name }}</li>
+  <li>Leikkipaikan osoite: {{ invitation.location }}</li>
+  <li>Ajankohta: {{ invitation.day}} klo {{ invitation.time }}</li>
+  <li>Leikkikaverin nimi: {{ invitation.childs_name }}</li>
+  <li>Leikkikaverin ikä: {{ invitation.age }} vuotta</li>
+  <li>Lisätietoa: <br> {{ invitation.info | replace('\n', '<br>') | safe }}</li>
+</ul>
 </div>
 <div class="answers">
 <h2>Ilmoittautumiset</h2>
