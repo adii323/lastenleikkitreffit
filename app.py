@@ -256,7 +256,7 @@ def create_user():
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        return render_template("register.html", error_username="Tunnus on jo käytössä") 
+        return render_template("register.html", error_username="Tunnus on jo käytössä", username=username) 
                                   
     return render_template("login.html", message="Tunnus luotu! Kirjaudu sisään sovellukseen:")
 
