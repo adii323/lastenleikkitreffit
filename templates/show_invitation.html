@@ -54,12 +54,12 @@
   <h3>Ilmoittaudu mukaan leikkitreffeille</h3>
   <form action="/create_answer" method="post">
     <p>
-      Leikkikaverin nimi: <br />
-      <input type="text" name="childs_name" size="5" maxlength="50" required/>
+      <label for="childs_name">Leikkikaverin nimi:</label> <br />
+      <input type="text" name="childs_name" id="childs_name" size="5" maxlength="50" required/>
     </p>
     <p>
-      Leikkikaverin ikä: <br />
-      <select id="age" name="age" required>
+      <label for="age">Leikkikaverin ikä:</label> <br />
+      <select id="age" name="age" id="age" required>
         <option value="" disabled selected>Valitse ikä</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -82,8 +82,8 @@
       </select>
     <p>
     <p>
-      Viesti kutsujalle: <br />
-      <textarea name="message" rows="8" cols="60" maxlength="1000" required></textarea>
+      <label for="message">Viesti kutsujalle:</label> <br />
+      <textarea name="message" id="message" rows="8" cols="60" maxlength="1000" required></textarea>
     </p>
     <p>
     Vastaaja: <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
