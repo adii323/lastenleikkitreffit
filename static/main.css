@@ -5,6 +5,21 @@ body {
   background-color: rgb(236, 229, 131);
 }
 
+.topbar {
+  color: #000;
+  padding: 0.2em 1.2em;        
+  margin: 0.5em 0;             
+  border-radius: 20px;         
+  display: flex;
+  justify-content: flex-end;   
+  align-items: center;
+  min-height: 1.6em;
+}
+
+.topbar .user {
+  margin: 0;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -17,13 +32,6 @@ body {
   position: relative;
   border-radius: 20px;
   text-align: center;
-}
-
-.header .user {
-  position: absolute;
-  top: 0.1em;
-  right: 0.2em;
-  margin: 0;
 }
 
 .header .logo {
@@ -50,7 +58,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between; 
-  gap: 12px;                      
+  gap: 12px;
+  padding: 1.15em 0;                      
 }
 
 .inv-title {
