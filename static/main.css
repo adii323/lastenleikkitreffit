@@ -6,6 +6,10 @@ body {
 }
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
   background-color: pink;
   color: black;
   padding: 0.2em 1.2em;
@@ -20,6 +24,12 @@ body {
   top: 0.1em;
   right: 0.2em;
   margin: 0;
+}
+
+.header .logo {
+  height: 90px;                
+  width: auto;                 
+  display: block;
 }
 
 .nav {
