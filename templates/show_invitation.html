@@ -27,7 +27,7 @@
   <li>Ajankohta: {{ invitation.day}} klo {{ invitation.time }}</li>
   <li>Leikkikaverin nimi: {{ invitation.childs_name }}</li>
   <li>Leikkikaverin ikä: {{ invitation.age }} vuotta</li>
-  <li>Lisätietoa: <br> {{ invitation.info | replace('\n', '<br>') | safe }}</li>
+  <li>Lisätietoa: <br> {{ invitation.info | show_lines }}</li>
 </ul>
 </div>
 <div class="answers">
@@ -39,7 +39,7 @@
     Leikkikaveri: {{ answer.childs_name }} {{ answer.age }} vuotta, 
     vastaaja: <a href="/user/{{ answer.user_id }}">{{ answer.username }}</a>
     {% if session.user_id == invitation.user_id %} <br />
-    Viesti: {{ answer.message }}
+    Viesti: {{ answer.message | show_lines }}
     {% endif %}
   </li>
   {% endfor %}

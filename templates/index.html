@@ -7,9 +7,9 @@
 
 {% for invitation in invitations %}
 <div class="invitations">
-<a class="title" href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> |  
-Ajankohta: {{ invitation.day}} {{ invitation.time}} | Paikka: {{ invitation.location}} |
-Kutsuja: <a href="/user/{{ invitation.user_id }}" >{{ invitation.username }} </a>
+  <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> |  
+  Ajankohta: {{ invitation.day}} {{ invitation.time}} | Paikka: {{ invitation.location}} |
+  Kutsuja: <a href="/user/{{ invitation.user_id }}" >{{ invitation.username }} </a>
 </div>
 {% endfor %}
 
