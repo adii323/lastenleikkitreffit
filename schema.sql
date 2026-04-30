@@ -36,6 +36,13 @@ CREATE TABLE answers (
     invitation_id INTEGER REFERENCES invitations,
     user_id INTEGER REFERENCES users,
     childs_name TEXT,
-    age INTEGER,
-    message TEXT
+    age INTEGER
+);
+
+CREATE TABLE messages (
+    id INTEGER PRIMARY KEY,
+    invitation_id INTEGER REFERENCES invitations,
+    user_id INTEGER REFERENCES users,
+    sent_at TEXT,
+    content TEXT
 );

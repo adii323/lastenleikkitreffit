@@ -45,7 +45,8 @@ def show_user(user_id):
     answers = []
     for invitation_id in invitation_ids:
         answers.append(invitations.get_answers(invitation_id))
-    return render_template("show_user.html", user = user, invitations=my_invitations, answers=answers)
+    return render_template("show_user.html", user = user, invitations=my_invitations,
+                           answers=answers)
 
 @app.route("/find_invitations")
 def find_invitations():
@@ -64,8 +65,13 @@ def show_invitation(invitation_id):
         abort(404)
     classes = invitations.get_classes(invitation_id)
     answers = invitations.get_answers(invitation_id)
+    messages = invitations.get_messages(invitation_id)
+    answer_user_ids = []
+    for answer in answers:
+        answer_user_ids.append(answer["user_id"])
 
-    return render_template("show_invitation.html", invitation = invitation, classes=classes, answers=answers)
+    return render_template("show_invitation.html", invitation = invitation, classes=classes,
+                           answers=answers, answer_user_ids=answer_user_ids, messages=messages)
 
 @app.route("/new_invitation")
 def new_invitation():
@@ -119,8 +125,9 @@ def create_invitation():
             if class_value not in all_classes[class_title]:
                 abort(403)
             classes.append((class_title, class_value))
-    
-    invitations.add_invitation(title, name, location, day, time, childs_name, age, info, user_id, classes)
+
+    invitations.add_invitation(title, name, location, day, time, childs_name, age, info,
+                               user_id, classes)
 
     return redirect("/")
 
@@ -138,8 +145,8 @@ def create_answer():
     except (TypeError, ValueError):
         # Not an integer
         abort(403)
-    message = request.form["message"]
-    if not message or len(message) > 1000:
+    content = request.form["message"]
+    if not content or len(content) > 1000:
         abort(403)
     invitation_id = request.form["invitation_id"]
     invitation = invitations.get_invitation(invitation_id)
@@ -147,7 +154,34 @@ def create_answer():
         abort(403)
     user_id = session["user_id"]
 
-    invitations.add_answer(invitation_id, user_id, childs_name, age, message)
+    invitations.add_answer(invitation_id, user_id, childs_name, age)
+    invitations.add_message(invitation_id, user_id, content)
+
+    return redirect("/invitation/" + str(invitation_id))
+
+@app.route("/create_message", methods=["POST"])
+def create_message():
+    require_login()
+    check_csrf()
+    invitation_id = request.form["invitation_id"]
+    content = request.form["content"]
+    if not content or len(content) > 1000:
+        abort(403)
+
+    user_id = session["user_id"]
+
+    invitations.add_message(invitation_id, user_id, content)
+
+    return redirect("/invitation/" + str(invitation_id))
+
+@app.route("/delete_message/<int:message_id>", methods=["POST"])
+def delete_message(message_id):
+    require_login()
+    check_csrf()
+    invitation_id = request.form["invitation_id"]
+
+    if "remove" in request.form:
+        invitations.delete_message(request.form["message_id"])
 
     return redirect("/invitation/" + str(invitation_id))
 
@@ -170,8 +204,8 @@ def edit_invitation(invitation_id):
         classes[entry["title"]] = entry["value"]
     print(classes)
 
-    return render_template("edit_invitation.html", min_day=date.today().isoformat(), invitation=invitation, 
-                           classes=classes, all_classes=all_classes)
+    return render_template("edit_invitation.html", min_day=date.today().isoformat(),
+                           invitation=invitation, classes=classes, all_classes=all_classes)
 
 @app.route("/update_invitation", methods=["POST"])
 def update_invitation():
@@ -220,9 +254,10 @@ def update_invitation():
             if class_value not in all_classes[class_title]:
                 abort(403)
             classes.append((class_title, class_value))
-    
+
     if "update" in request.form:
-        invitations.update_invitation(invitation_id, title, name, location, day, time, childs_name, age, info, classes)
+        invitations.update_invitation(invitation_id, title, name, location, day, time,
+                                      childs_name, age, info, classes)
         return redirect("/invitation/" + str(invitation_id))
     else:
         return redirect("/invitation/" + str(invitation_id))
@@ -231,15 +266,15 @@ def update_invitation():
 @app.route("/remove_invitation/<int:invitation_id>", methods=["GET", "POST"])
 def remove_invitation(invitation_id):
     require_login()
-    
+
     invitation = invitations.get_invitation(invitation_id)
     if not invitation:
-        abort(404)    
+        abort(404)
     if invitation["user_id"] != session["user_id"]:
         abort(403)
     if request.method == "GET":
         return render_template("remove_invitation.html", invitation=invitation)
-      
+
     if request.method == "POST":
         check_csrf()
         if "remove" in request.form:
@@ -258,13 +293,14 @@ def create_user():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return render_template("register.html", error_password="Salasanat eivät täsmää", username=username), 400
-    
+        return render_template("register.html", error_password="Salasanat eivät täsmää",
+                               username=username), 400
+
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        return render_template("register.html", error_username="Tunnus on jo käytössä", username=username) 
-                                  
+        return render_template("register.html", error_username="Tunnus on jo käytössä",
+                               username=username)
     return render_template("login.html", message="Tunnus luotu! Kirjaudu sisään sovellukseen:")
 
 @app.route("/login")

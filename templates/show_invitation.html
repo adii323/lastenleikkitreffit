@@ -13,9 +13,7 @@
       </div>
     {% endif %}
   </div>
-  <p>
   Kutsuja: <a href="/user/{{ invitation.user_id }}">{{ invitation.username }}</a>
-  </p>
   <ul>
   {% if classes %}
     {% for class in classes %}
@@ -29,20 +27,57 @@
   <li>Leikkikaverin ikä: {{ invitation.age }} vuotta</li>
   <li>Lisätietoa: {{ invitation.info | show_lines }}</li>
 </ul>
-</div>
+
 <div class="answers">
 <h2>Ilmoittautumiset</h2>
 {% if answers | count > 0 %}
-<ul>
-  {% for answer in answers %}
-  <li>
-    Leikkikaveri: {{ answer.childs_name }} {{ answer.age }} vuotta, 
-    vastaaja: <a href="/user/{{ answer.user_id }}">{{ answer.username }}</a>
-    {% if session.user_id == invitation.user_id %} <br />
-    Viesti: {{ answer.message | show_lines }}
+  <ul>
+    {% for answer in answers %}
+    <li>
+      Leikkikaveri: {{ answer.childs_name }} {{ answer.age }} vuotta,
+      vastaaja: <a href="/user/{{ answer.user_id }}">{{ answer.username }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% if session.user_id in answer_user_ids or session.user_id == invitation.user_id %}
+  <div class="messages">
+  <h2>Keskustele osallistujien kanssa:</h2>
+  <h3>Viestit:</h3>
+    {% if messages | count > 0 %}
+    <hr />
     {% endif %}
-  </li>
-  {% endfor %}
+    {% for message in messages %}
+    <p>
+      {{ message.username }} : {{ message.sent_at }}
+    </p>
+      <form action="/delete_message/{{ message.id }}" method="post">
+      {{ message.content }}
+      {% if session.user_id == message.user_id %}
+      <input type="submit" name="remove" value="Poista viesti">
+      <input type="hidden" name="message_id" value = "{{ message.id }}">
+      <input type="hidden" name="invitation_id" value="{{ invitation.id }}">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      {% endif %}
+      </form>
+    <hr />
+    {% endfor %}
+
+  </ul>
+  <h3>Uusi viesti</h3>
+  <form action="/create_message" method="post">
+    <p>
+      <label for="content"></label>
+      <textarea name="content" id="content" rows="8" cols="60" maxlength="1000" required></textarea>
+    </p>
+    <input type="hidden" name="invitation_id" value="{{ invitation.id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <input type="submit" value="Lähetä" />
+  </form>
+  </div>
+
+  {% endif %}
+
 {% else %}
 <p>
   Ei vielä ilmoittautumisia
@@ -50,7 +85,7 @@
 {% endif %}
 </ul>
 {% if session.user_id %}
-  {% if session.user_id != invitation.user_id %}
+  {% if session.user_id != invitation.user_id and session.user_id not in answer_user_ids%}
   <h3>Ilmoittaudu mukaan leikkitreffeille</h3>
   <form action="/create_answer" method="post">
     <p>
@@ -98,5 +133,6 @@
   Kirjaudu sisään ilmoittautuaksesi mukaan leikkitreffeille: <a href="/login">Kirjaudu sisään</a>
   </p>
 {% endif %}
+</div>
 </div>
 {% endblock %}
