@@ -49,15 +49,15 @@
     {% endif %}
     {% for message in messages %}
     <p>
-      {{ message.username }} : {{ message.sent_at }}
+      {{ message.username }} ({{ message.sent_at }}):
     </p>
       <form action="/delete_message/{{ message.id }}" method="post">
       {{ message.content }}
       {% if session.user_id == message.user_id %}
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
       <input type="submit" name="remove" value="Poista viesti">
       <input type="hidden" name="message_id" value = "{{ message.id }}">
       <input type="hidden" name="invitation_id" value="{{ invitation.id }}">
-      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
       {% endif %}
       </form>
     <hr />
