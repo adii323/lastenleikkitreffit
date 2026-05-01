@@ -7,7 +7,7 @@
 - Käyttäjä näkee sovellukseen lisätyt kutsut. Käyttäjä näkee sekä itse lisäämänsä että muiden käyttäjien lisäämät kutsut.
 - Käyttäjä pystyy etsimään kutsuja hakusanalla. Käyttäjä pystyy hakemaan sekä itse lisäämiään että muiden käyttäjien lisäämiä kutsuja.
 - Sovelluksessa on käyttäjäsivut, jotka näyttävät jokaisesta käyttäjästä tilastoja ja käyttäjän lisäämät kutsut.
-- Käyttäjä pystyy valitsemaan kutsuille yhden tai useamman luokittelun (esim. leikkitreffien tekeminen). Mahdolliset luokat ovat tietokannassa.
+- Käyttäjä pystyy valitsemaan kutsuille yhden luokittelun (leikkitreffien tekeminen). Luokat ovat tietokannassa.
 - Sovelluksessa on pääasiallisen tietokohteen (kutsut) lisäksi kaksi toissijaista tietokohdetta (myöntävä vastaus kutsuun ja viestit osallistujien kesken), jotka täydentävät pääasiallista tietokohdetta. Käyttäjä pystyy lisäämään vastauksia muiden käyttäjien kutsuihin liittyen ja viestittelemään leikkitreffeille osallistuvien kesken.
 
 ## Sovelluksen asennus (linux-ympäristö):  
@@ -45,6 +45,7 @@ Käynnistä sovellus:
 ```
 	 flask run
 ```
+##Sovelluksen testaus:
 Luo ensin tunnus muutamalle eri käyttäjälle. Sen jälkeen voit lisätä käyttäjille kutsuja. Esimerkkisyöte kutsulle:  
 Otsikko: Leikkipuistotreffit  
 Tekeminen: Leikit ulkona leikkipuistossa  
