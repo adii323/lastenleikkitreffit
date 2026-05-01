@@ -1,8 +1,11 @@
+"""Flask application for children's playdate invitations.
+
+This module defines the Flask app, routes, and main configuration.
+"""
 import sqlite3
 from flask import Flask
 from flask import redirect, render_template, request, session, abort
 import config
-import db
 import invitations
 import users
 from datetime import date
@@ -320,7 +323,8 @@ def check():
         session["csrf_token"] = secrets.token_hex(16)
         return redirect(next_page)
     else:
-        return render_template("login.html", error="Väärä käyttäjänimi tai salasana", next_page=next_page), 400
+        return render_template("login.html", error="Väärä käyttäjänimi tai salasana",
+                               next_page=next_page), 400
 
 
 @app.route("/logout")
