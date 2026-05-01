@@ -51,7 +51,7 @@ Otsikko: Leikkipuistotreffit
 Tekeminen: Leikit ulkona leikkipuistossa  
 Leikkipaikan nimi: Leikkipuisto Toinen linja  
 Leikkipaikan osoite: Toinen linja 10  
-Päivämäärä: 28.3.2026  
+Päivämäärä: 5.6.2026  
 Kellonaika: 15:00  
 Leikkikaverin nimi: Ville  
 Leikkikaverin ikä: 4  
