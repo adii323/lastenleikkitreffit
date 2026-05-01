@@ -64,10 +64,9 @@
     {% endfor %}
 
   </ul>
-  <h3>Uusi viesti</h3>
   <form action="/create_message" method="post">
     <p>
-      <label for="content"></label>
+      <label for="content">Uusi viesti: </label><br>
       <textarea name="content" id="content" rows="8" cols="60" maxlength="1000" required></textarea>
     </p>
     <input type="hidden" name="invitation_id" value="{{ invitation.id }}">
