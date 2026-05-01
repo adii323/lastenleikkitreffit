@@ -8,7 +8,7 @@
 
 <form action="/find_invitations" method="get">
   <p>
-    <label for="query">Hakusana:</label> 
+    <label for="query">Hakusana:</label>
     <input type="text" name="query" id="query" value="{{ query }}">
   </p>
   <input type="submit" value="Etsi">
@@ -18,11 +18,10 @@
 {% if query %}
 <h2>Tulokset</h2>
 
-<ul>
-  {% for invitation in results %}
-  <li><a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a></li>
+{% for invitation in results %}
+  <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> |
+  Ajankohta: {{ invitation.day}} {{ invitation.time}} | Paikka: {{ invitation.location}}
   {% endfor %}
-</ul>
 {% endif %}
 </div>
 {% endblock %}

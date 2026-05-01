@@ -113,7 +113,7 @@ def delete_message(message_id):
 
 
 def find_invitations(query):
-    sql ="""SELECT id, title
+    sql ="""SELECT id, title, day, time, location, user_id
             FROM invitations
             WHERE title LIKE ? OR name LIKE ?
             ORDER BY id DESC"""
