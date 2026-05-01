@@ -18,10 +18,12 @@
 {% if query %}
 <h2>Tulokset</h2>
 
-{% for invitation in results %}
-  <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> |
-  Ajankohta: {{ invitation.day}} {{ invitation.time}} | Paikka: {{ invitation.location}}
+  {% for invitation in results %}
+    <a href="/invitation/{{ invitation.id }}">{{ invitation.title }}</a> |
+    Ajankohta: {{ invitation.day}} {{ invitation.time}} | Paikka: {{ invitation.location}}<br>
   {% endfor %}
 {% endif %}
 </div>
 {% endblock %}
+
+
