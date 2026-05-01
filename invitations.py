@@ -13,8 +13,8 @@ def get_all_classes():
     return classes
 
 def add_invitation(title, name, location, day, time, childs_name, age, info, user_id, classes):
-    sql = """INSERT INTO invitations (title, name, location, day, time, childs_name, age, info, user_id)
-    VALUES (?, ? ,?, ?, ?, ?, ?, ?, ?)"""
+    sql = """INSERT INTO invitations (title, name, location, day, time, childs_name, age,
+            info, user_id) VALUES (?, ? ,?, ?, ?, ?, ?, ?, ?)"""
     db.execute(sql, [title, name, location, day, time, childs_name, age, info, user_id])
 
     invitation_id = db.last_insert_id()
@@ -28,7 +28,8 @@ def add_answer(invitation_id, user_id, childs_name, age):
     db.execute(sql, [invitation_id, user_id, childs_name, age])
 
 def add_message(invitation_id, user_id, content):
-    sql = "INSERT INTO messages (invitation_id, user_id, sent_at, content) VALUES (?, ?, datetime('now'),?)"
+    sql = """INSERT INTO messages (invitation_id, user_id, sent_at, content)
+            VALUES (?, ?, datetime('now'),?)"""
     db.execute(sql, [invitation_id, user_id, content])
 
 def get_answers(invitation_id):
@@ -38,7 +39,8 @@ def get_answers(invitation_id):
     return db.query(sql, [invitation_id])
 
 def get_messages(invitation_id):
-    sql = """SELECT messages.id, messages.content, messages.sent_at, users.id user_id, users.username
+    sql = """SELECT messages.id, messages.content, messages.sent_at, users.id user_id,
+            users.username
             FROM messages, users
             WHERE messages.invitation_id = ? AND messages.user_id = users.id
             ORDER BY messages.id"""
@@ -49,7 +51,8 @@ def get_classes(invitation_id):
     return db.query(sql, [invitation_id])
 
 def get_invitations():
-    sql = """SELECT invitations.id, invitations.title, invitations.location, invitations.day, invitations.time,
+    sql = """SELECT invitations.id, invitations.title, invitations.location, invitations.day,
+            invitations.time,
             users.id user_id, users.username
             FROM invitations, users
             WHERE invitations.user_id = users.id
