@@ -45,7 +45,7 @@ Käynnistä sovellus:
 ```
 	 flask run
 ```
-##Sovelluksen testaus:
+## Sovelluksen testaus:
 Luo ensin tunnus muutamalle eri käyttäjälle. Sen jälkeen voit lisätä käyttäjille kutsuja. Esimerkkisyöte kutsulle:  
 Otsikko: Leikkipuistotreffit  
 Tekeminen: Leikit ulkona leikkipuistossa  
