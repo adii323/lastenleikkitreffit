@@ -9,10 +9,10 @@ def get_user(user_id):
     return result[0] if result else None
 
 def get_invitations(user_id):
-    sql = """SELECT id, title, location, day, time, user_id 
+    sql = """SELECT id, title, location, day, time, user_id
             FROM invitations
             WHERE user_id = ?
-            ORDER BY id DESC"""
+            ORDER BY day"""
     return db.query(sql, [user_id])
 
 def create_user(username, password):
