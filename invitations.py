@@ -56,7 +56,7 @@ def get_invitations():
             users.id user_id, users.username
             FROM invitations, users
             WHERE invitations.user_id = users.id
-            ORDER BY invitations.day"""
+            ORDER BY invitations.day, invitations.time"""
     return db.query(sql)
 
 def get_invitation(invitation_id):
@@ -119,6 +119,6 @@ def find_invitations(query):
     sql ="""SELECT id, title, day, time, location, user_id
             FROM invitations
             WHERE title LIKE ? OR name LIKE ?
-            ORDER BY day"""
+            ORDER BY day, time"""
     like = "%" + query + "%"
     return db.query(sql, [like, like])

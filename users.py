@@ -12,7 +12,7 @@ def get_invitations(user_id):
     sql = """SELECT id, title, location, day, time, user_id
             FROM invitations
             WHERE user_id = ?
-            ORDER BY day"""
+            ORDER BY day, time"""
     return db.query(sql, [user_id])
 
 def create_user(username, password):
